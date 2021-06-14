@@ -32,7 +32,6 @@ namespace ImGuiNET
         public IntPtr Renderer_RenderWindow;
         public IntPtr Renderer_SwapBuffers;
         public ImVector Monitors;
-        public ImGuiViewport* MainViewport;
         public ImVector Viewports;
     }
     public unsafe partial struct ImGuiPlatformIOPtr
@@ -68,7 +67,6 @@ namespace ImGuiNET
         public ref IntPtr Renderer_RenderWindow => ref Unsafe.AsRef<IntPtr>(&NativePtr->Renderer_RenderWindow);
         public ref IntPtr Renderer_SwapBuffers => ref Unsafe.AsRef<IntPtr>(&NativePtr->Renderer_SwapBuffers);
         public ImPtrVector<ImGuiPlatformMonitorPtr> Monitors => new ImPtrVector<ImGuiPlatformMonitorPtr>(NativePtr->Monitors, Unsafe.SizeOf<ImGuiPlatformMonitor>());
-        public ImGuiViewportPtr MainViewport => new ImGuiViewportPtr(NativePtr->MainViewport);
         public ImVector<ImGuiViewportPtr> Viewports => new ImVector<ImGuiViewportPtr>(NativePtr->Viewports);
         public void Destroy()
         {

@@ -11,6 +11,7 @@ namespace ImGuiNET
         public uint ParentViewportId;
         public ImGuiViewportFlags ViewportFlagsOverrideSet;
         public ImGuiViewportFlags ViewportFlagsOverrideClear;
+        public ImGuiTabItemFlags TabItemFlagsOverrideSet;
         public ImGuiDockNodeFlags DockNodeFlagsOverrideSet;
         public ImGuiDockNodeFlags DockNodeFlagsOverrideClear;
         public byte DockingAlwaysTabBar;
@@ -28,6 +29,7 @@ namespace ImGuiNET
         public ref uint ParentViewportId => ref Unsafe.AsRef<uint>(&NativePtr->ParentViewportId);
         public ref ImGuiViewportFlags ViewportFlagsOverrideSet => ref Unsafe.AsRef<ImGuiViewportFlags>(&NativePtr->ViewportFlagsOverrideSet);
         public ref ImGuiViewportFlags ViewportFlagsOverrideClear => ref Unsafe.AsRef<ImGuiViewportFlags>(&NativePtr->ViewportFlagsOverrideClear);
+        public ref ImGuiTabItemFlags TabItemFlagsOverrideSet => ref Unsafe.AsRef<ImGuiTabItemFlags>(&NativePtr->TabItemFlagsOverrideSet);
         public ref ImGuiDockNodeFlags DockNodeFlagsOverrideSet => ref Unsafe.AsRef<ImGuiDockNodeFlags>(&NativePtr->DockNodeFlagsOverrideSet);
         public ref ImGuiDockNodeFlags DockNodeFlagsOverrideClear => ref Unsafe.AsRef<ImGuiDockNodeFlags>(&NativePtr->DockNodeFlagsOverrideClear);
         public ref bool DockingAlwaysTabBar => ref Unsafe.AsRef<bool>(&NativePtr->DockingAlwaysTabBar);

@@ -41,7 +41,7 @@ namespace CodeGenerator
             JObject variantsJson = null;
             if (File.Exists(Path.Combine(directory, "variants.json")))
             {
-                using (StreamReader fs = File.OpenText(Path.Combine(AppContext.BaseDirectory, "variants.json")))
+                using (StreamReader fs = File.OpenText(Path.Combine(directory, "variants.json")))
                 using (JsonTextReader jr = new JsonTextReader(fs))
                 {
                     variantsJson = JObject.Load(jr);
@@ -65,12 +65,12 @@ namespace CodeGenerator
             {
                 JProperty jp = (JProperty)jt;
                 string name = jp.Name;
-                if (typeLocations?[jp.Name]?.Value<string>() == "internal") {
+                if (typeLocations?[jp.Name]?.Value<string>().Contains("internal") ?? false) {
                     return null;
                 }
                 EnumMember[] elements = jp.Values().Select(v =>
                 {
-                    return new EnumMember(v["name"].ToString(), v["value"].ToString());
+                    return new EnumMember(v["name"].ToString(), v["calc_value"].ToString());
                 }).ToArray();
                 return new EnumDefinition(name, elements);
             }).Where(x => x != null).ToArray();
@@ -79,7 +79,7 @@ namespace CodeGenerator
             {
                 JProperty jp = (JProperty)jt;
                 string name = jp.Name;
-                if (typeLocations?[jp.Name]?.Value<string>() == "internal") {
+                if (typeLocations?[jp.Name]?.Value<string>().Contains("internal") ?? false) {
                     return null;
                 }
                 TypeReference[] fields = jp.Values().Select(v =>
@@ -120,7 +120,7 @@ namespace CodeGenerator
                         }
                     }
                     if (friendlyName == null) { return null; }
-                    if (val["location"]?.ToString() == "internal") return null;
+                    if (val["location"]?.ToString().Contains("internal") ?? false) return null;
 
                     string exportedName = ov_cimguiname;
                     if (exportedName == null)
@@ -268,12 +268,19 @@ namespace CodeGenerator
             if (memberName.StartsWith(Name))
             {
                 ret = memberName.Substring(Name.Length);
+                if (ret.StartsWith("_"))
+                {
+                    ret = ret.Substring(1);
+                }
             }
 
             if (ret.EndsWith('_'))
             {
                 ret = ret.Substring(0, ret.Length - 1);
             }
+
+            if (Char.IsDigit(ret.First()))
+                ret = "_" + ret;
 
             return ret;
         }
@@ -368,7 +375,7 @@ namespace CodeGenerator
             
             TypeVariants = typeVariants;
 
-            IsEnum = enums.Any(t => t.Name == type || t.FriendlyName == type);
+            IsEnum = enums.Any(t => t.Name == type || t.FriendlyName == type || TypeInfo.WellKnownEnums.Contains(type));
         }
         
         private int ParseSizeString(string sizePart, EnumDefinition[] enums)

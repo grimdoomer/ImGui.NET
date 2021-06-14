@@ -457,6 +457,61 @@ namespace ImGuiNET
         {
             ImGuiNative.igBeginGroup();
         }
+        public static bool BeginListBox(string label)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            Vector2 size = new Vector2();
+            byte ret = ImGuiNative.igBeginListBox(native_label, size);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+            return ret != 0;
+        }
+        public static bool BeginListBox(string label, Vector2 size)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            byte ret = ImGuiNative.igBeginListBox(native_label, size);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+            return ret != 0;
+        }
         public static bool BeginMainMenuBar()
         {
             byte ret = ImGuiNative.igBeginMainMenuBar();
@@ -999,6 +1054,120 @@ namespace ImGuiNET
             p_open = native_p_open_val != 0;
             return ret != 0;
         }
+        public static bool BeginTable(string str_id, int column)
+        {
+            byte* native_str_id;
+            int str_id_byteCount = 0;
+            if (str_id != null)
+            {
+                str_id_byteCount = Encoding.UTF8.GetByteCount(str_id);
+                if (str_id_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_str_id = Util.Allocate(str_id_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_str_id_stackBytes = stackalloc byte[str_id_byteCount + 1];
+                    native_str_id = native_str_id_stackBytes;
+                }
+                int native_str_id_offset = Util.GetUtf8(str_id, native_str_id, str_id_byteCount);
+                native_str_id[native_str_id_offset] = 0;
+            }
+            else { native_str_id = null; }
+            ImGuiTableFlags flags = (ImGuiTableFlags)0;
+            Vector2 outer_size = new Vector2();
+            float inner_width = 0.0f;
+            byte ret = ImGuiNative.igBeginTable(native_str_id, column, flags, outer_size, inner_width);
+            if (str_id_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_str_id);
+            }
+            return ret != 0;
+        }
+        public static bool BeginTable(string str_id, int column, ImGuiTableFlags flags)
+        {
+            byte* native_str_id;
+            int str_id_byteCount = 0;
+            if (str_id != null)
+            {
+                str_id_byteCount = Encoding.UTF8.GetByteCount(str_id);
+                if (str_id_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_str_id = Util.Allocate(str_id_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_str_id_stackBytes = stackalloc byte[str_id_byteCount + 1];
+                    native_str_id = native_str_id_stackBytes;
+                }
+                int native_str_id_offset = Util.GetUtf8(str_id, native_str_id, str_id_byteCount);
+                native_str_id[native_str_id_offset] = 0;
+            }
+            else { native_str_id = null; }
+            Vector2 outer_size = new Vector2();
+            float inner_width = 0.0f;
+            byte ret = ImGuiNative.igBeginTable(native_str_id, column, flags, outer_size, inner_width);
+            if (str_id_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_str_id);
+            }
+            return ret != 0;
+        }
+        public static bool BeginTable(string str_id, int column, ImGuiTableFlags flags, Vector2 outer_size)
+        {
+            byte* native_str_id;
+            int str_id_byteCount = 0;
+            if (str_id != null)
+            {
+                str_id_byteCount = Encoding.UTF8.GetByteCount(str_id);
+                if (str_id_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_str_id = Util.Allocate(str_id_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_str_id_stackBytes = stackalloc byte[str_id_byteCount + 1];
+                    native_str_id = native_str_id_stackBytes;
+                }
+                int native_str_id_offset = Util.GetUtf8(str_id, native_str_id, str_id_byteCount);
+                native_str_id[native_str_id_offset] = 0;
+            }
+            else { native_str_id = null; }
+            float inner_width = 0.0f;
+            byte ret = ImGuiNative.igBeginTable(native_str_id, column, flags, outer_size, inner_width);
+            if (str_id_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_str_id);
+            }
+            return ret != 0;
+        }
+        public static bool BeginTable(string str_id, int column, ImGuiTableFlags flags, Vector2 outer_size, float inner_width)
+        {
+            byte* native_str_id;
+            int str_id_byteCount = 0;
+            if (str_id != null)
+            {
+                str_id_byteCount = Encoding.UTF8.GetByteCount(str_id);
+                if (str_id_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_str_id = Util.Allocate(str_id_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_str_id_stackBytes = stackalloc byte[str_id_byteCount + 1];
+                    native_str_id = native_str_id_stackBytes;
+                }
+                int native_str_id_offset = Util.GetUtf8(str_id, native_str_id, str_id_byteCount);
+                native_str_id[native_str_id_offset] = 0;
+            }
+            else { native_str_id = null; }
+            byte ret = ImGuiNative.igBeginTable(native_str_id, column, flags, outer_size, inner_width);
+            if (str_id_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_str_id);
+            }
+            return ret != 0;
+        }
         public static void BeginTooltip()
         {
             ImGuiNative.igBeginTooltip();
@@ -1093,37 +1262,6 @@ namespace ImGuiNET
             float ret = ImGuiNative.igCalcItemWidth();
             return ret;
         }
-        public static Vector2 CalcTextSize(string text)
-        {
-            Vector2 __retval;
-            byte* native_text;
-            int text_byteCount = 0;
-            if (text != null)
-            {
-                text_byteCount = Encoding.UTF8.GetByteCount(text);
-                if (text_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_text = Util.Allocate(text_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_text_stackBytes = stackalloc byte[text_byteCount + 1];
-                    native_text = native_text_stackBytes;
-                }
-                int native_text_offset = Util.GetUtf8(text, native_text, text_byteCount);
-                native_text[native_text_offset] = 0;
-            }
-            else { native_text = null; }
-            byte* native_text_end = null;
-            byte hide_text_after_double_hash = 0;
-            float wrap_width = -1.0f;
-            ImGuiNative.igCalcTextSize(&__retval, native_text, native_text_end, hide_text_after_double_hash, wrap_width);
-            if (text_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_text);
-            }
-            return __retval;
-        }
         public static void CaptureKeyboardFromApp()
         {
             byte want_capture_keyboard_value = 1;
@@ -1174,6 +1312,36 @@ namespace ImGuiNET
             v = native_v_val != 0;
             return ret != 0;
         }
+        public static bool CheckboxFlags(string label, ref int flags, int flags_value)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            fixed (int* native_flags = &flags)
+            {
+                byte ret = ImGuiNative.igCheckboxFlagsIntPtr(native_label, native_flags, flags_value);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    Util.Free(native_label);
+                }
+                return ret != 0;
+            }
+        }
         public static bool CheckboxFlags(string label, ref uint flags, uint flags_value)
         {
             byte* native_label;
@@ -1196,7 +1364,7 @@ namespace ImGuiNET
             else { native_label = null; }
             fixed (uint* native_flags = &flags)
             {
-                byte ret = ImGuiNative.igCheckboxFlags(native_label, native_flags, flags_value);
+                byte ret = ImGuiNative.igCheckboxFlagsUintPtr(native_label, native_flags, flags_value);
                 if (label_byteCount > Util.StackAllocationSizeLimit)
                 {
                     Util.Free(native_label);
@@ -1263,7 +1431,7 @@ namespace ImGuiNET
             }
             return ret != 0;
         }
-        public static bool CollapsingHeader(string label, ref bool p_open)
+        public static bool CollapsingHeader(string label, ref bool p_visible)
         {
             byte* native_label;
             int label_byteCount = 0;
@@ -1283,18 +1451,18 @@ namespace ImGuiNET
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
-            byte native_p_open_val = p_open ? (byte)1 : (byte)0;
-            byte* native_p_open = &native_p_open_val;
+            byte native_p_visible_val = p_visible ? (byte)1 : (byte)0;
+            byte* native_p_visible = &native_p_visible_val;
             ImGuiTreeNodeFlags flags = (ImGuiTreeNodeFlags)0;
-            byte ret = ImGuiNative.igCollapsingHeaderBoolPtr(native_label, native_p_open, flags);
+            byte ret = ImGuiNative.igCollapsingHeaderBoolPtr(native_label, native_p_visible, flags);
             if (label_byteCount > Util.StackAllocationSizeLimit)
             {
                 Util.Free(native_label);
             }
-            p_open = native_p_open_val != 0;
+            p_visible = native_p_visible_val != 0;
             return ret != 0;
         }
-        public static bool CollapsingHeader(string label, ref bool p_open, ImGuiTreeNodeFlags flags)
+        public static bool CollapsingHeader(string label, ref bool p_visible, ImGuiTreeNodeFlags flags)
         {
             byte* native_label;
             int label_byteCount = 0;
@@ -1314,14 +1482,14 @@ namespace ImGuiNET
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
-            byte native_p_open_val = p_open ? (byte)1 : (byte)0;
-            byte* native_p_open = &native_p_open_val;
-            byte ret = ImGuiNative.igCollapsingHeaderBoolPtr(native_label, native_p_open, flags);
+            byte native_p_visible_val = p_visible ? (byte)1 : (byte)0;
+            byte* native_p_visible = &native_p_visible_val;
+            byte ret = ImGuiNative.igCollapsingHeaderBoolPtr(native_label, native_p_visible, flags);
             if (label_byteCount > Util.StackAllocationSizeLimit)
             {
                 Util.Free(native_label);
             }
-            p_open = native_p_open_val != 0;
+            p_visible = native_p_visible_val != 0;
             return ret != 0;
         }
         public static bool ColorButton(string desc_id, Vector4 col)
@@ -5870,6 +6038,10 @@ namespace ImGuiNET
         {
             ImGuiNative.igEndGroup();
         }
+        public static void EndListBox()
+        {
+            ImGuiNative.igEndListBox();
+        }
         public static void EndMainMenuBar()
         {
             ImGuiNative.igEndMainMenuBar();
@@ -5894,6 +6066,10 @@ namespace ImGuiNET
         {
             ImGuiNative.igEndTabItem();
         }
+        public static void EndTable()
+        {
+            ImGuiNative.igEndTable();
+        }
         public static void EndTooltip()
         {
             ImGuiNative.igEndTooltip();
@@ -5908,6 +6084,19 @@ namespace ImGuiNET
             void* native_platform_handle = (void*)platform_handle.ToPointer();
             ImGuiViewport* ret = ImGuiNative.igFindViewportByPlatformHandle(native_platform_handle);
             return new ImGuiViewportPtr(ret);
+        }
+        public static void GetAllocatorFunctions(ref IntPtr p_alloc_func, ref IntPtr p_free_func, ref void* p_user_data)
+        {
+            fixed (IntPtr* native_p_alloc_func = &p_alloc_func)
+            {
+                fixed (IntPtr* native_p_free_func = &p_free_func)
+                {
+                    fixed (void** native_p_user_data = &p_user_data)
+                    {
+                        ImGuiNative.igGetAllocatorFunctions(native_p_alloc_func, native_p_free_func, native_p_user_data);
+                    }
+                }
+            }
         }
         public static ImDrawListPtr GetBackgroundDrawList()
         {
@@ -8085,297 +8274,6 @@ namespace ImGuiNET
             }
             return ret != 0;
         }
-        public static bool InputTextWithHint(string label, string hint, string buf, uint buf_size)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte* native_hint;
-            int hint_byteCount = 0;
-            if (hint != null)
-            {
-                hint_byteCount = Encoding.UTF8.GetByteCount(hint);
-                if (hint_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_hint = Util.Allocate(hint_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_hint_stackBytes = stackalloc byte[hint_byteCount + 1];
-                    native_hint = native_hint_stackBytes;
-                }
-                int native_hint_offset = Util.GetUtf8(hint, native_hint, hint_byteCount);
-                native_hint[native_hint_offset] = 0;
-            }
-            else { native_hint = null; }
-            byte* native_buf;
-            int buf_byteCount = 0;
-            if (buf != null)
-            {
-                buf_byteCount = Encoding.UTF8.GetByteCount(buf);
-                if (buf_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_buf = Util.Allocate(buf_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_buf_stackBytes = stackalloc byte[buf_byteCount + 1];
-                    native_buf = native_buf_stackBytes;
-                }
-                int native_buf_offset = Util.GetUtf8(buf, native_buf, buf_byteCount);
-                native_buf[native_buf_offset] = 0;
-            }
-            else { native_buf = null; }
-            ImGuiInputTextFlags flags = (ImGuiInputTextFlags)0;
-            ImGuiInputTextCallback callback = null;
-            void* user_data = null;
-            byte ret = ImGuiNative.igInputTextWithHint(native_label, native_hint, native_buf, buf_size, flags, callback, user_data);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            if (hint_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_hint);
-            }
-            if (buf_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_buf);
-            }
-            return ret != 0;
-        }
-        public static bool InputTextWithHint(string label, string hint, string buf, uint buf_size, ImGuiInputTextFlags flags)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte* native_hint;
-            int hint_byteCount = 0;
-            if (hint != null)
-            {
-                hint_byteCount = Encoding.UTF8.GetByteCount(hint);
-                if (hint_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_hint = Util.Allocate(hint_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_hint_stackBytes = stackalloc byte[hint_byteCount + 1];
-                    native_hint = native_hint_stackBytes;
-                }
-                int native_hint_offset = Util.GetUtf8(hint, native_hint, hint_byteCount);
-                native_hint[native_hint_offset] = 0;
-            }
-            else { native_hint = null; }
-            byte* native_buf;
-            int buf_byteCount = 0;
-            if (buf != null)
-            {
-                buf_byteCount = Encoding.UTF8.GetByteCount(buf);
-                if (buf_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_buf = Util.Allocate(buf_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_buf_stackBytes = stackalloc byte[buf_byteCount + 1];
-                    native_buf = native_buf_stackBytes;
-                }
-                int native_buf_offset = Util.GetUtf8(buf, native_buf, buf_byteCount);
-                native_buf[native_buf_offset] = 0;
-            }
-            else { native_buf = null; }
-            ImGuiInputTextCallback callback = null;
-            void* user_data = null;
-            byte ret = ImGuiNative.igInputTextWithHint(native_label, native_hint, native_buf, buf_size, flags, callback, user_data);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            if (hint_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_hint);
-            }
-            if (buf_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_buf);
-            }
-            return ret != 0;
-        }
-        public static bool InputTextWithHint(string label, string hint, string buf, uint buf_size, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte* native_hint;
-            int hint_byteCount = 0;
-            if (hint != null)
-            {
-                hint_byteCount = Encoding.UTF8.GetByteCount(hint);
-                if (hint_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_hint = Util.Allocate(hint_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_hint_stackBytes = stackalloc byte[hint_byteCount + 1];
-                    native_hint = native_hint_stackBytes;
-                }
-                int native_hint_offset = Util.GetUtf8(hint, native_hint, hint_byteCount);
-                native_hint[native_hint_offset] = 0;
-            }
-            else { native_hint = null; }
-            byte* native_buf;
-            int buf_byteCount = 0;
-            if (buf != null)
-            {
-                buf_byteCount = Encoding.UTF8.GetByteCount(buf);
-                if (buf_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_buf = Util.Allocate(buf_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_buf_stackBytes = stackalloc byte[buf_byteCount + 1];
-                    native_buf = native_buf_stackBytes;
-                }
-                int native_buf_offset = Util.GetUtf8(buf, native_buf, buf_byteCount);
-                native_buf[native_buf_offset] = 0;
-            }
-            else { native_buf = null; }
-            void* user_data = null;
-            byte ret = ImGuiNative.igInputTextWithHint(native_label, native_hint, native_buf, buf_size, flags, callback, user_data);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            if (hint_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_hint);
-            }
-            if (buf_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_buf);
-            }
-            return ret != 0;
-        }
-        public static bool InputTextWithHint(string label, string hint, string buf, uint buf_size, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, IntPtr user_data)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte* native_hint;
-            int hint_byteCount = 0;
-            if (hint != null)
-            {
-                hint_byteCount = Encoding.UTF8.GetByteCount(hint);
-                if (hint_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_hint = Util.Allocate(hint_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_hint_stackBytes = stackalloc byte[hint_byteCount + 1];
-                    native_hint = native_hint_stackBytes;
-                }
-                int native_hint_offset = Util.GetUtf8(hint, native_hint, hint_byteCount);
-                native_hint[native_hint_offset] = 0;
-            }
-            else { native_hint = null; }
-            byte* native_buf;
-            int buf_byteCount = 0;
-            if (buf != null)
-            {
-                buf_byteCount = Encoding.UTF8.GetByteCount(buf);
-                if (buf_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_buf = Util.Allocate(buf_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_buf_stackBytes = stackalloc byte[buf_byteCount + 1];
-                    native_buf = native_buf_stackBytes;
-                }
-                int native_buf_offset = Util.GetUtf8(buf, native_buf, buf_byteCount);
-                native_buf[native_buf_offset] = 0;
-            }
-            else { native_buf = null; }
-            void* native_user_data = (void*)user_data.ToPointer();
-            byte ret = ImGuiNative.igInputTextWithHint(native_label, native_hint, native_buf, buf_size, flags, callback, native_user_data);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            if (hint_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_hint);
-            }
-            if (buf_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_buf);
-            }
-            return ret != 0;
-        }
         public static bool InvisibleButton(string str_id, Vector2 size)
         {
             byte* native_str_id;
@@ -8863,120 +8761,6 @@ namespace ImGuiNET
                 }
                 return ret != 0;
             }
-        }
-        public static void ListBoxFooter()
-        {
-            ImGuiNative.igListBoxFooter();
-        }
-        public static bool ListBoxHeader(string label)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            Vector2 size = new Vector2();
-            byte ret = ImGuiNative.igListBoxHeaderVec2(native_label, size);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            return ret != 0;
-        }
-        public static bool ListBoxHeader(string label, Vector2 size)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte ret = ImGuiNative.igListBoxHeaderVec2(native_label, size);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            return ret != 0;
-        }
-        public static bool ListBoxHeader(string label, int items_count)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            int height_in_items = -1;
-            byte ret = ImGuiNative.igListBoxHeaderInt(native_label, items_count, height_in_items);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            return ret != 0;
-        }
-        public static bool ListBoxHeader(string label, int items_count, int height_in_items)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte ret = ImGuiNative.igListBoxHeaderInt(native_label, items_count, height_in_items);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(native_label);
-            }
-            return ret != 0;
         }
         public static void LoadIniSettingsFromDisk(string ini_filename)
         {
@@ -9510,14 +9294,13 @@ namespace ImGuiNET
                 Util.Free(native_str_id);
             }
         }
-        public static bool OpenPopupContextItem()
+        public static void OpenPopupOnItemClick()
         {
             byte* native_str_id = null;
             ImGuiPopupFlags popup_flags = (ImGuiPopupFlags)1;
-            byte ret = ImGuiNative.igOpenPopupContextItem(native_str_id, popup_flags);
-            return ret != 0;
+            ImGuiNative.igOpenPopupOnItemClick(native_str_id, popup_flags);
         }
-        public static bool OpenPopupContextItem(string str_id)
+        public static void OpenPopupOnItemClick(string str_id)
         {
             byte* native_str_id;
             int str_id_byteCount = 0;
@@ -9538,14 +9321,13 @@ namespace ImGuiNET
             }
             else { native_str_id = null; }
             ImGuiPopupFlags popup_flags = (ImGuiPopupFlags)1;
-            byte ret = ImGuiNative.igOpenPopupContextItem(native_str_id, popup_flags);
+            ImGuiNative.igOpenPopupOnItemClick(native_str_id, popup_flags);
             if (str_id_byteCount > Util.StackAllocationSizeLimit)
             {
                 Util.Free(native_str_id);
             }
-            return ret != 0;
         }
-        public static bool OpenPopupContextItem(string str_id, ImGuiPopupFlags popup_flags)
+        public static void OpenPopupOnItemClick(string str_id, ImGuiPopupFlags popup_flags)
         {
             byte* native_str_id;
             int str_id_byteCount = 0;
@@ -9565,12 +9347,11 @@ namespace ImGuiNET
                 native_str_id[native_str_id_offset] = 0;
             }
             else { native_str_id = null; }
-            byte ret = ImGuiNative.igOpenPopupContextItem(native_str_id, popup_flags);
+            ImGuiNative.igOpenPopupOnItemClick(native_str_id, popup_flags);
             if (str_id_byteCount > Util.StackAllocationSizeLimit)
             {
                 Util.Free(native_str_id);
             }
-            return ret != 0;
         }
         public static void PlotHistogram(string label, ref float values, int values_count)
         {
@@ -10288,7 +10069,7 @@ namespace ImGuiNET
         }
         public static void ProgressBar(float fraction)
         {
-            Vector2 size_arg = new Vector2(-1, 0);
+            Vector2 size_arg = new Vector2(-float.MinValue, 0.0f);
             byte* native_overlay = null;
             ImGuiNative.igProgressBar(fraction, size_arg, native_overlay);
         }
@@ -10764,6 +10545,16 @@ namespace ImGuiNET
         public static void Separator()
         {
             ImGuiNative.igSeparator();
+        }
+        public static void SetAllocatorFunctions(IntPtr alloc_func, IntPtr free_func)
+        {
+            void* user_data = null;
+            ImGuiNative.igSetAllocatorFunctions(alloc_func, free_func, user_data);
+        }
+        public static void SetAllocatorFunctions(IntPtr alloc_func, IntPtr free_func, IntPtr user_data)
+        {
+            void* native_user_data = (void*)user_data.ToPointer();
+            ImGuiNative.igSetAllocatorFunctions(alloc_func, free_func, native_user_data);
         }
         public static void SetClipboardText(string text)
         {
@@ -13246,6 +13037,281 @@ namespace ImGuiNET
         {
             ImGuiStyle* native_dst = dst.NativePtr;
             ImGuiNative.igStyleColorsLight(native_dst);
+        }
+        public static bool TabItemButton(string label)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            ImGuiTabItemFlags flags = (ImGuiTabItemFlags)0;
+            byte ret = ImGuiNative.igTabItemButton(native_label, flags);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+            return ret != 0;
+        }
+        public static bool TabItemButton(string label, ImGuiTabItemFlags flags)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            byte ret = ImGuiNative.igTabItemButton(native_label, flags);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+            return ret != 0;
+        }
+        public static int TableGetColumnCount()
+        {
+            int ret = ImGuiNative.igTableGetColumnCount();
+            return ret;
+        }
+        public static ImGuiTableColumnFlags TableGetColumnFlags()
+        {
+            int column_n = -1;
+            ImGuiTableColumnFlags ret = ImGuiNative.igTableGetColumnFlags(column_n);
+            return ret;
+        }
+        public static ImGuiTableColumnFlags TableGetColumnFlags(int column_n)
+        {
+            ImGuiTableColumnFlags ret = ImGuiNative.igTableGetColumnFlags(column_n);
+            return ret;
+        }
+        public static int TableGetColumnIndex()
+        {
+            int ret = ImGuiNative.igTableGetColumnIndex();
+            return ret;
+        }
+        public static string TableGetColumnName()
+        {
+            int column_n = -1;
+            byte* ret = ImGuiNative.igTableGetColumnNameInt(column_n);
+            return Util.StringFromPtr(ret);
+        }
+        public static string TableGetColumnName(int column_n)
+        {
+            byte* ret = ImGuiNative.igTableGetColumnNameInt(column_n);
+            return Util.StringFromPtr(ret);
+        }
+        public static int TableGetRowIndex()
+        {
+            int ret = ImGuiNative.igTableGetRowIndex();
+            return ret;
+        }
+        public static ImGuiTableSortSpecsPtr TableGetSortSpecs()
+        {
+            ImGuiTableSortSpecs* ret = ImGuiNative.igTableGetSortSpecs();
+            return new ImGuiTableSortSpecsPtr(ret);
+        }
+        public static void TableHeader(string label)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            ImGuiNative.igTableHeader(native_label);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+        }
+        public static void TableHeadersRow()
+        {
+            ImGuiNative.igTableHeadersRow();
+        }
+        public static bool TableNextColumn()
+        {
+            byte ret = ImGuiNative.igTableNextColumn();
+            return ret != 0;
+        }
+        public static void TableNextRow()
+        {
+            ImGuiTableRowFlags row_flags = (ImGuiTableRowFlags)0;
+            float min_row_height = 0.0f;
+            ImGuiNative.igTableNextRow(row_flags, min_row_height);
+        }
+        public static void TableNextRow(ImGuiTableRowFlags row_flags)
+        {
+            float min_row_height = 0.0f;
+            ImGuiNative.igTableNextRow(row_flags, min_row_height);
+        }
+        public static void TableNextRow(ImGuiTableRowFlags row_flags, float min_row_height)
+        {
+            ImGuiNative.igTableNextRow(row_flags, min_row_height);
+        }
+        public static void TableSetBgColor(ImGuiTableBgTarget target, uint color)
+        {
+            int column_n = -1;
+            ImGuiNative.igTableSetBgColor(target, color, column_n);
+        }
+        public static void TableSetBgColor(ImGuiTableBgTarget target, uint color, int column_n)
+        {
+            ImGuiNative.igTableSetBgColor(target, color, column_n);
+        }
+        public static bool TableSetColumnIndex(int column_n)
+        {
+            byte ret = ImGuiNative.igTableSetColumnIndex(column_n);
+            return ret != 0;
+        }
+        public static void TableSetupColumn(string label)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            ImGuiTableColumnFlags flags = (ImGuiTableColumnFlags)0;
+            float init_width_or_weight = 0.0f;
+            uint user_id = 0;
+            ImGuiNative.igTableSetupColumn(native_label, flags, init_width_or_weight, user_id);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+        }
+        public static void TableSetupColumn(string label, ImGuiTableColumnFlags flags)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            float init_width_or_weight = 0.0f;
+            uint user_id = 0;
+            ImGuiNative.igTableSetupColumn(native_label, flags, init_width_or_weight, user_id);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+        }
+        public static void TableSetupColumn(string label, ImGuiTableColumnFlags flags, float init_width_or_weight)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            uint user_id = 0;
+            ImGuiNative.igTableSetupColumn(native_label, flags, init_width_or_weight, user_id);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+        }
+        public static void TableSetupColumn(string label, ImGuiTableColumnFlags flags, float init_width_or_weight, uint user_id)
+        {
+            byte* native_label;
+            int label_byteCount = 0;
+            if (label != null)
+            {
+                label_byteCount = Encoding.UTF8.GetByteCount(label);
+                if (label_byteCount > Util.StackAllocationSizeLimit)
+                {
+                    native_label = Util.Allocate(label_byteCount + 1);
+                }
+                else
+                {
+                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
+                    native_label = native_label_stackBytes;
+                }
+                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                native_label[native_label_offset] = 0;
+            }
+            else { native_label = null; }
+            ImGuiNative.igTableSetupColumn(native_label, flags, init_width_or_weight, user_id);
+            if (label_byteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(native_label);
+            }
+        }
+        public static void TableSetupScrollFreeze(int cols, int rows)
+        {
+            ImGuiNative.igTableSetupScrollFreeze(cols, rows);
         }
         public static void Text(string fmt)
         {

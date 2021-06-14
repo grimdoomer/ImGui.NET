@@ -11,11 +11,11 @@ namespace ImGuiNET
         public ImGuiViewportFlags Flags;
         public Vector2 Pos;
         public Vector2 Size;
-        public Vector2 WorkOffsetMin;
-        public Vector2 WorkOffsetMax;
+        public Vector2 WorkPos;
+        public Vector2 WorkSize;
         public float DpiScale;
-        public ImDrawData* DrawData;
         public uint ParentViewportId;
+        public ImDrawData* DrawData;
         public void* RendererUserData;
         public void* PlatformUserData;
         public void* PlatformHandle;
@@ -36,11 +36,11 @@ namespace ImGuiNET
         public ref ImGuiViewportFlags Flags => ref Unsafe.AsRef<ImGuiViewportFlags>(&NativePtr->Flags);
         public ref Vector2 Pos => ref Unsafe.AsRef<Vector2>(&NativePtr->Pos);
         public ref Vector2 Size => ref Unsafe.AsRef<Vector2>(&NativePtr->Size);
-        public ref Vector2 WorkOffsetMin => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkOffsetMin);
-        public ref Vector2 WorkOffsetMax => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkOffsetMax);
+        public ref Vector2 WorkPos => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkPos);
+        public ref Vector2 WorkSize => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkSize);
         public ref float DpiScale => ref Unsafe.AsRef<float>(&NativePtr->DpiScale);
-        public ImDrawDataPtr DrawData => new ImDrawDataPtr(NativePtr->DrawData);
         public ref uint ParentViewportId => ref Unsafe.AsRef<uint>(&NativePtr->ParentViewportId);
+        public ImDrawDataPtr DrawData => new ImDrawDataPtr(NativePtr->DrawData);
         public IntPtr RendererUserData { get => (IntPtr)NativePtr->RendererUserData; set => NativePtr->RendererUserData = (void*)value; }
         public IntPtr PlatformUserData { get => (IntPtr)NativePtr->PlatformUserData; set => NativePtr->PlatformUserData = (void*)value; }
         public IntPtr PlatformHandle { get => (IntPtr)NativePtr->PlatformHandle; set => NativePtr->PlatformHandle = (void*)value; }
@@ -58,16 +58,10 @@ namespace ImGuiNET
             ImGuiNative.ImGuiViewport_GetCenter(&__retval, (ImGuiViewport*)(NativePtr));
             return __retval;
         }
-        public Vector2 GetWorkPos()
+        public Vector2 GetWorkCenter()
         {
             Vector2 __retval;
-            ImGuiNative.ImGuiViewport_GetWorkPos(&__retval, (ImGuiViewport*)(NativePtr));
-            return __retval;
-        }
-        public Vector2 GetWorkSize()
-        {
-            Vector2 __retval;
-            ImGuiNative.ImGuiViewport_GetWorkSize(&__retval, (ImGuiViewport*)(NativePtr));
+            ImGuiNative.ImGuiViewport_GetWorkCenter(&__retval, (ImGuiViewport*)(NativePtr));
             return __retval;
         }
     }
