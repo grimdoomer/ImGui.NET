@@ -263,3 +263,4 @@ deps/
 
 # VS Launch
 launchSettings.json
+/NuGet.Config
