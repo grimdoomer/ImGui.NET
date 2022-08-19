@@ -745,6 +745,46 @@ namespace ImGuiNET
             }
         }
 
+        public static bool InputScalarFloat(string label, ref float p_data)
+        {
+            fixed (void* p_native_data = &p_data)
+            {
+                return InputScalarTypeless(label, ImGuiDataType.Float, p_native_data);
+            }
+        }
+
+        public static bool InputScalarFloat(string label, ref float p_data, float p_step)
+        {
+            fixed (void* p_native_data = &p_data)
+            {
+                return InputScalarTypeless(label, ImGuiDataType.Float, p_native_data, &p_step);
+            }
+        }
+
+        public static bool InputScalarFloat(string label, ref float p_data, float p_step, float p_step_fast)
+        {
+            fixed (void* p_native_data = &p_data)
+            {
+                return InputScalarTypeless(label, ImGuiDataType.Float, p_native_data, &p_step, &p_step_fast);
+            }
+        }
+
+        public static bool InputScalarFloat(string label, ref float p_data, float p_step, float p_step_fast, string format)
+        {
+            fixed (void* p_native_data = &p_data)
+            {
+                return InputScalarTypeless(label, ImGuiDataType.Float, p_native_data, &p_step, &p_step_fast, format);
+            }
+        }
+
+        public static bool InputScalarFloat(string label, ref float p_data, float p_step, float p_step_fast, string format, ImGuiInputTextFlags flags)
+        {
+            fixed (void* p_native_data = &p_data)
+            {
+                return InputScalarTypeless(label, ImGuiDataType.Float, p_native_data, &p_step, &p_step_fast, format, flags);
+            }
+        }
+
         public static bool InputScalarTypeless(string label, ImGuiDataType data_type, void *p_data, void* p_step = null, void* p_step_fast = null, string format = null, ImGuiInputTextFlags flags = ImGuiInputTextFlags.None)
         {
             byte* native_label;
