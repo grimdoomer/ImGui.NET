@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Numerics;
+using SharpDX;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -838,214 +838,9 @@ namespace ImGuiNET
 
         #endregion
 
-        #region InputFloat2
-
-        public static bool InputFloat2(string label, ref SharpDX.Vector2 v)
-        {
-            return InputFloat2(label, ref v, "%.3f", ImGuiInputTextFlags.None);
-        }
-
-        public static bool InputFloat2(string label, ref SharpDX.Vector2 v, string format)
-        {
-            return InputFloat2(label, ref v, format, ImGuiInputTextFlags.None);
-        }
-
-        public static bool InputFloat2(string label, ref SharpDX.Vector2 v, string format, ImGuiInputTextFlags flags)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte* native_format;
-            int format_byteCount = 0;
-            if (format != null)
-            {
-                format_byteCount = Encoding.UTF8.GetByteCount(format);
-                if (format_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_format = Util.Allocate(format_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_format_stackBytes = stackalloc byte[format_byteCount + 1];
-                    native_format = native_format_stackBytes;
-                }
-                int native_format_offset = Util.GetUtf8(format, native_format, format_byteCount);
-                native_format[native_format_offset] = 0;
-            }
-            else { native_format = null; }
-            fixed (SharpDX.Vector2* native_v = &v)
-            {
-                byte ret = ImGuiNative.igInputFloat2(native_label, native_v, native_format, flags);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    Util.Free(native_label);
-                }
-                if (format_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    Util.Free(native_format);
-                }
-                return ret != 0;
-            }
-        }
-
-        #endregion
-
-        #region InputFloat3
-
-        public static bool InputFloat3(string label, ref SharpDX.Vector3 v)
-        {
-            return InputFloat3(label, ref v, "%.3f", ImGuiInputTextFlags.None);
-        }
-
-        public static bool InputFloat3(string label, ref SharpDX.Vector3 v, string format)
-        {
-            return InputFloat3(label, ref v, format, ImGuiInputTextFlags.None);
-        }
-
-        public static bool InputFloat3(string label, ref SharpDX.Vector3 v, string format, ImGuiInputTextFlags flags)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte* native_format;
-            int format_byteCount = 0;
-            if (format != null)
-            {
-                format_byteCount = Encoding.UTF8.GetByteCount(format);
-                if (format_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_format = Util.Allocate(format_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_format_stackBytes = stackalloc byte[format_byteCount + 1];
-                    native_format = native_format_stackBytes;
-                }
-                int native_format_offset = Util.GetUtf8(format, native_format, format_byteCount);
-                native_format[native_format_offset] = 0;
-            }
-            else { native_format = null; }
-            fixed (SharpDX.Vector3* native_v = &v)
-            {
-                byte ret = ImGuiNative.igInputFloat3(native_label, native_v, native_format, flags);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    Util.Free(native_label);
-                }
-                if (format_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    Util.Free(native_format);
-                }
-                return ret != 0;
-            }
-        }
-
-        #endregion
-
-        #region InputFloat4
-
-        public static bool InputFloat4(string label, ref SharpDX.Vector4 v)
-        {
-            return InputFloat4(label, ref v, "%.3f", ImGuiInputTextFlags.None);
-        }
-
-        public static bool InputFloat4(string label, ref SharpDX.Vector4 v, string format)
-        {
-            return InputFloat4(label, ref v, format, ImGuiInputTextFlags.None);
-        }
-
-        public static bool InputFloat4(string label, ref SharpDX.Vector4 v, string format, ImGuiInputTextFlags flags)
-        {
-            byte* native_label;
-            int label_byteCount = 0;
-            if (label != null)
-            {
-                label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_label = Util.Allocate(label_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
-                    native_label = native_label_stackBytes;
-                }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
-                native_label[native_label_offset] = 0;
-            }
-            else { native_label = null; }
-            byte* native_format;
-            int format_byteCount = 0;
-            if (format != null)
-            {
-                format_byteCount = Encoding.UTF8.GetByteCount(format);
-                if (format_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    native_format = Util.Allocate(format_byteCount + 1);
-                }
-                else
-                {
-                    byte* native_format_stackBytes = stackalloc byte[format_byteCount + 1];
-                    native_format = native_format_stackBytes;
-                }
-                int native_format_offset = Util.GetUtf8(format, native_format, format_byteCount);
-                native_format[native_format_offset] = 0;
-            }
-            else { native_format = null; }
-            fixed (SharpDX.Vector4* native_v = &v)
-            {
-                byte ret = ImGuiNative.igInputFloat4(native_label, native_v, native_format, flags);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    Util.Free(native_label);
-                }
-                if (format_byteCount > Util.StackAllocationSizeLimit)
-                {
-                    Util.Free(native_format);
-                }
-                return ret != 0;
-            }
-        }
-
-        #endregion
-
         #region InputInt2
 
-        public static bool InputInt2(string label, ref SharpDX.Point v)
-        {
-            return InputInt2(label, ref v, ImGuiInputTextFlags.None);
-        }
-        public static bool InputInt2(string label, ref SharpDX.Point v, ImGuiInputTextFlags flags)
+        public static bool InputInt2(string label, ref Point v, ImGuiInputTextFlags flags)
         {
             byte* native_label;
             int label_byteCount = 0;
@@ -1065,7 +860,7 @@ namespace ImGuiNET
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
-            fixed (SharpDX.Point* native_v = &v)
+            fixed (Point* native_v = &v)
             {
                 int* intp = (int*)native_v;
                 byte ret = ImGuiNative.igInputInt2(native_label, intp, flags);
@@ -1164,6 +959,12 @@ namespace ImGuiNET
         public static void ScrollToBringRectIntoView()
         {
             ImGuiNative.igScrollToBringRectIntoView();
+        }
+
+        public static float GetWindowContentRegionWidth()
+        {
+            // OBSOLETED in 1.85 (from August 2021)
+            return ImGui.GetWindowContentRegionMax().X - ImGui.GetWindowContentRegionMin().X;
         }
 
         #endregion

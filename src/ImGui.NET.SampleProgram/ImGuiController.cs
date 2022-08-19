@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
+using SharpDX;
 using System.Reflection;
 using System.IO;
 using Veldrid;
@@ -332,7 +332,7 @@ namespace ImGuiNET
         {
             ImGuiIOPtr io = ImGui.GetIO();
 
-            Vector2 mousePosition = snapshot.MousePosition;
+            Vector2 mousePosition = new Vector2(snapshot.MousePosition.X, snapshot.MousePosition.Y);
 
             // Determine if any of the mouse buttons were pressed during this snapshot period, even if they are no longer held.
             bool leftPressed = false;
@@ -470,7 +470,7 @@ namespace ImGuiNET
 
             // Setup orthographic projection matrix into our constant buffer
             ImGuiIOPtr io = ImGui.GetIO();
-            Matrix4x4 mvp = Matrix4x4.CreateOrthographicOffCenter(
+            Matrix mvp = Matrix.OrthoOffCenterLH(
                 0f,
                 io.DisplaySize.X,
                 io.DisplaySize.Y,

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using Num = System.Numerics;
+using Num = SharpDX;
 
 namespace ImGuiNET.SampleProgram.XNA
 {
