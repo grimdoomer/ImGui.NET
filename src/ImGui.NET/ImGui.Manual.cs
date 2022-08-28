@@ -968,5 +968,65 @@ namespace ImGuiNET
         }
 
         #endregion
+
+        #region DockBuilder
+
+        public static void DockBuilderDockWindow(string window_name, uint node_id)
+        {
+            int utf8NameByteCount = Encoding.UTF8.GetByteCount(window_name);
+            byte* utf8NameBytes;
+            if (utf8NameByteCount > Util.StackAllocationSizeLimit)
+            {
+                utf8NameBytes = Util.Allocate(utf8NameByteCount + 1);
+            }
+            else
+            {
+                byte* stackPtr = stackalloc byte[utf8NameByteCount + 1];
+                utf8NameBytes = stackPtr;
+            }
+            Util.GetUtf8(window_name, utf8NameBytes, utf8NameByteCount);
+
+            ImGuiNative.igDockBuilderDockWindow(utf8NameBytes, node_id);
+
+            if (utf8NameByteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(utf8NameBytes);
+            }
+        }
+
+        public static uint DockBuilderSplitNode(uint node_id, ImGuiDir split_dir, float size_ratio_for_node_at_dir, out uint out_id_at_dir, out uint out_id_at_opposite_dir)
+        {
+            out_id_at_dir = 0;
+            out_id_at_opposite_dir = 0;
+
+            return ImGuiNative.igDockBuilderSplitNode(node_id, split_dir, size_ratio_for_node_at_dir, ref out_id_at_dir, ref out_id_at_opposite_dir);
+        }
+
+        public static uint DockBuilderAddNode(uint node_id = 0, ImGuiDockNodeFlags flags = ImGuiDockNodeFlags.None)
+        {
+            return ImGuiNative.igDockBuilderAddNode(node_id, flags);
+        }
+
+        public static void DockBuilderRemoveNode(uint node_id)
+        {
+            ImGuiNative.igDockBuilderRemoveNode(node_id);
+        }
+
+        public static void DockBuilderSetNodePos(uint node_id, Vector2 pos)
+        {
+            ImGuiNative.igDockBuilderSetNodePos(node_id, pos);
+        }
+
+        public static void DockBuilderSetNodeSize(uint node_id, Vector2 size)
+        {
+            ImGuiNative.igDockBuilderSetNodeSize(node_id, size);
+        }
+
+        public static void DockBuilderFinish(uint node_id)
+        {
+            ImGuiNative.igDockBuilderFinish(node_id);
+        }
+
+        #endregion
     }
 }
