@@ -101,6 +101,7 @@ namespace CodeGenerator
             foreach (TypeDefinition td in defs.Types)
             {
                 if (TypeInfo.CustomDefinedTypes.Contains(td.Name)) { continue; }
+                if (TypeInfo.SkippedTypes.Contains(td.Name) == true) { continue; }
 
                 using (CSharpCodeWriter writer = new CSharpCodeWriter(Path.Combine(outputPath, td.Name + ".gen.cs")))
                 {
@@ -162,6 +163,9 @@ namespace CodeGenerator
 
                         if (field.ArraySize != 0)
                         {
+                            if (typeStr.Contains("*") == true)
+                                typeStr = "IntPtr";
+
                             string addrTarget = TypeInfo.LegalFixedTypes.Contains(rawType) ? $"NativePtr->{field.Name}" : $"&NativePtr->{field.Name}_0";
                             writer.WriteLine($"public RangeAccessor<{typeStr}> {field.Name} => new RangeAccessor<{typeStr}>({addrTarget}, {field.ArraySize});");
                         }
@@ -284,6 +288,8 @@ namespace CodeGenerator
                 writer.PushBlock($"public static unsafe partial class {classPrefix}Native");
                 foreach (FunctionDefinition fd in defs.Functions)
                 {
+                    if (TypeInfo.SkippedFunctions.Contains(fd.Name)) { continue; }
+
                     foreach (OverloadDefinition overload in fd.Overloads)
                     {
                         string exportedName = overload.ExportedName;
@@ -796,7 +802,7 @@ namespace CodeGenerator
 
         private static bool CorrectDefaultValue(string defaultVal, TypeReference tr, out string correctedDefault)
         {
-            if (tr.Type == "ImGuiContext*" || tr.Type == "ImPlotContext*" || tr.Type == "EditorContext*")
+            if (tr.Type == "ImGuiContext*" || tr.Type == "ImPlotContext*" || tr.Type == "EditorContext*" || tr.Type == "ImGuiSizeCallback")
             {
                 correctedDefault = "IntPtr.Zero";
                 return true;

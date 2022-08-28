@@ -52,6 +52,9 @@ namespace CodeGenerator
             { "ImVec2[2]", "Vector2*" },
             { "char* []", "byte**" },
             { "unsigned char[256]", "byte*"},
+            { "ImGuiTableColumnIdx", "sbyte" },
+            { "ImGuiTableDrawChannelIdx", "byte" },
+            { "ImGuiSizeCallback", "IntPtr" }
         };
         
         public static readonly List<string> WellKnownEnums = new List<string>()
@@ -70,6 +73,7 @@ namespace CodeGenerator
             "ImVec2",
             "ImVec4",
             "ImGuiStoragePair",
+            "ImGuiPlatformIO"
         };
 
         public static readonly Dictionary<string, string> WellKnownDefaultValues = new Dictionary<string, string>()
@@ -137,10 +141,36 @@ namespace CodeGenerator
 
         public static readonly HashSet<string> SkippedFunctions = new HashSet<string>()
         {
-            "igInputText",
-            "igInputTextMultiline",
-            "igCalcTextSize",
-            "igInputTextWithHint"
+            //"igInputText",
+            //"igInputTextMultiline",
+            //"igCalcTextSize",
+            //"igInputTextWithHint",
+
+            "igImTextCharToUtf8",
+            "igErrorCheckEndWindowRecover",
+            "igErrorCheckEndFrameRecover",
+            "igFindBestWindowPosForPopupEx",
+            "igAddContextHook",
+            "ImGuiContextHook_destroy",
+            "ImGuiContextHook_ImGuiContextHook",
+            "igNavMoveRequestResolveWithLastItem",
+            //"ImGuiLastItemData_destroy",
+            //"ImGuiLastItemData_ImGuiLastItemData",
+            "ImGuiInputEvent_destroy",
+            "ImGuiInputEvent_ImGuiInputEvent",
+            "ImGuiStyleMod_destroy",
+            "ImGuiStyleMod_ImGuiStyleMod",
+            "ImGuiDockContext_destroy",
+            "ImGuiDockContext_ImGuiDockContext"
+        };
+
+        public static readonly HashSet<string> SkippedTypes = new HashSet<string>()
+        {
+            "ImGuiContextHook",
+            "ImGuiContext",
+            "ImGuiStyleMod",
+            "ImGuiInputEvent",
+            "ImGuiDockContext"
         };
     }
 }

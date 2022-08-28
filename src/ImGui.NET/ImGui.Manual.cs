@@ -158,6 +158,64 @@ namespace ImGuiNET
             return result != 0;
         }
 
+        public static bool InputText(
+            string label,
+            IntPtr buf,
+            uint buf_size)
+        {
+            return InputText(label, buf, buf_size, 0, null, IntPtr.Zero);
+        }
+
+        public static bool InputText(
+            string label,
+            IntPtr buf,
+            uint buf_size,
+            ImGuiInputTextFlags flags)
+        {
+            return InputText(label, buf, buf_size, flags, null, IntPtr.Zero);
+        }
+
+        public static bool InputText(
+            string label,
+            IntPtr buf,
+            uint buf_size,
+            ImGuiInputTextFlags flags,
+            ImGuiInputTextCallback callback)
+        {
+            return InputText(label, buf, buf_size, flags, callback, IntPtr.Zero);
+        }
+
+        public static bool InputText(
+            string label,
+            IntPtr buf,
+            uint buf_size,
+            ImGuiInputTextFlags flags,
+            ImGuiInputTextCallback callback,
+            IntPtr user_data)
+        {
+            int utf8LabelByteCount = Encoding.UTF8.GetByteCount(label);
+            byte* utf8LabelBytes;
+            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            {
+                utf8LabelBytes = Util.Allocate(utf8LabelByteCount + 1);
+            }
+            else
+            {
+                byte* stackPtr = stackalloc byte[utf8LabelByteCount + 1];
+                utf8LabelBytes = stackPtr;
+            }
+            Util.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
+
+            bool ret = ImGuiNative.igInputText(utf8LabelBytes, (byte*)buf.ToPointer(), buf_size, flags, callback, user_data.ToPointer()) != 0;
+
+            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            {
+                Util.Free(utf8LabelBytes);
+            }
+
+            return ret;
+        }
+
         #endregion
 
         #region InputTextMultiline
@@ -257,6 +315,7 @@ namespace ImGuiNET
 
         #region InputTextWithHint
 
+        /*
         public static bool InputTextWithHint(
             string label,
             string hint,
@@ -364,11 +423,13 @@ namespace ImGuiNET
 
             return result != 0;
         }
+        */
 
         #endregion
 
         #region CalcTextSize
 
+        /*
         public static Vector2 CalcTextSize(string text)
             => CalcTextSizeImpl(text);
 
@@ -441,66 +502,9 @@ namespace ImGuiNET
 
             return ret;
         }
+        */
 
         #endregion
-
-        public static bool InputText(
-            string label,
-            IntPtr buf,
-            uint buf_size)
-        {
-            return InputText(label, buf, buf_size, 0, null, IntPtr.Zero);
-        }
-
-        public static bool InputText(
-            string label,
-            IntPtr buf,
-            uint buf_size,
-            ImGuiInputTextFlags flags)
-        {
-            return InputText(label, buf, buf_size, flags, null, IntPtr.Zero);
-        }
-
-        public static bool InputText(
-            string label,
-            IntPtr buf,
-            uint buf_size,
-            ImGuiInputTextFlags flags,
-            ImGuiInputTextCallback callback)
-        {
-            return InputText(label, buf, buf_size, flags, callback, IntPtr.Zero);
-        }
-
-        public static bool InputText(
-            string label,
-            IntPtr buf,
-            uint buf_size,
-            ImGuiInputTextFlags flags,
-            ImGuiInputTextCallback callback,
-            IntPtr user_data)
-        {
-            int utf8LabelByteCount = Encoding.UTF8.GetByteCount(label);
-            byte* utf8LabelBytes;
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
-            {
-                utf8LabelBytes = Util.Allocate(utf8LabelByteCount + 1);
-            }
-            else
-            {
-                byte* stackPtr = stackalloc byte[utf8LabelByteCount + 1];
-                utf8LabelBytes = stackPtr;
-            }
-            Util.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
-
-            bool ret = ImGuiNative.igInputText(utf8LabelBytes, (byte*)buf.ToPointer(), buf_size, flags, callback, user_data.ToPointer()) != 0;
-
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
-            {
-                Util.Free(utf8LabelBytes);
-            }
-
-            return ret;
-        }
 
         public static bool Begin(string name, ImGuiWindowFlags flags)
         {
@@ -531,16 +535,6 @@ namespace ImGuiNET
         public static bool MenuItem(string label, bool enabled)
         {
             return MenuItem(label, string.Empty, false, enabled);
-        }
-
-        public static void PushItemFlag(ImGuiItemFlags option, bool enabled)
-        {
-            ImGuiNative.igPushItemFlag(option, enabled);
-        }
-
-        public static void PopItemFlag()
-        {
-            ImGuiNative.igPopItemFlag();
         }
 
         #region InputScalar
@@ -971,6 +965,7 @@ namespace ImGuiNET
 
         #region DockBuilder
 
+        /*
         public static void DockBuilderDockWindow(string window_name, uint node_id)
         {
             int utf8NameByteCount = Encoding.UTF8.GetByteCount(window_name);
@@ -1026,6 +1021,7 @@ namespace ImGuiNET
         {
             ImGuiNative.igDockBuilderFinish(node_id);
         }
+        */
 
         #endregion
     }
