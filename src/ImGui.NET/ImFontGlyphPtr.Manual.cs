@@ -1,5 +1,5 @@
-using System;
-using SharpDX;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -7,8 +7,11 @@ namespace ImGuiNET
 {
     public unsafe partial struct ImFontGlyph
     {
-        public uint Colored;
-        public uint Visible;
+        // Note: Colored and Visible are bit packed into Codepoint. To work around this
+        //  we only expose Codepoint and in ImFontGlyphPtr have accessors that mask in/out the corresponding bits.
+
+        //public uint Colored;
+        //public uint Visible;
         public uint Codepoint;
         public float AdvanceX;
         public float X0;
@@ -26,10 +29,39 @@ namespace ImGuiNET
         public ImFontGlyphPtr(ImFontGlyph* nativePtr) => NativePtr = nativePtr;
         public ImFontGlyphPtr(IntPtr nativePtr) => NativePtr = (ImFontGlyph*)nativePtr;
         public static implicit operator ImFontGlyphPtr(ImFontGlyph* nativePtr) => new ImFontGlyphPtr(nativePtr);
-        public static implicit operator ImFontGlyph* (ImFontGlyphPtr wrappedPtr) => wrappedPtr.NativePtr;
+        public static implicit operator ImFontGlyph*(ImFontGlyphPtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImFontGlyphPtr(IntPtr nativePtr) => new ImFontGlyphPtr(nativePtr);
-        public ref uint Colored => ref Unsafe.AsRef<uint>(&NativePtr->Colored);
-        public ref uint Visible => ref Unsafe.AsRef<uint>(&NativePtr->Visible);
+
+        public bool Colored
+        {
+            get
+            {
+                return (Unsafe.AsRef<uint>(&NativePtr->Codepoint) & 1) != 0;
+            }
+            set
+            {
+                if (value == true)
+                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) |= 1;
+                else
+                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) &= ~(uint)1;
+            }
+        }
+
+        public bool Visible
+        {
+            get
+            {
+                return (Unsafe.AsRef<uint>(&NativePtr->Codepoint) & 2) != 0;
+            }
+            set
+            {
+                if (value == true)
+                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) |= 2;
+                else
+                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) &= ~(uint)2;
+            }
+        }
+
         public ref uint Codepoint => ref Unsafe.AsRef<uint>(&NativePtr->Codepoint);
         public ref float AdvanceX => ref Unsafe.AsRef<float>(&NativePtr->AdvanceX);
         public ref float X0 => ref Unsafe.AsRef<float>(&NativePtr->X0);
