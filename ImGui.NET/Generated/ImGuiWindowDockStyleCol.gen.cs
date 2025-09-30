@@ -3,11 +3,13 @@ namespace ImGuiNET
     public enum ImGuiWindowDockStyleCol
     {
         Text = 0,
-        Tab = 1,
-        TabHovered = 2,
-        TabActive = 3,
-        TabUnfocused = 4,
-        TabUnfocusedActive = 5,
-        COUNT = 6,
+        TabHovered = 1,
+        TabFocused = 2,
+        TabSelected = 3,
+        TabSelectedOverline = 4,
+        TabDimmed = 5,
+        TabDimmedSelected = 6,
+        TabDimmedSelectedOverline = 7,
+        COUNT = 8,
     }
 }

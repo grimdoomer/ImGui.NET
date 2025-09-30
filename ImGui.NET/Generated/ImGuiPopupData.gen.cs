@@ -9,7 +9,7 @@ namespace ImGuiNET
     {
         public uint PopupId;
         public ImGuiWindow* Window;
-        public ImGuiWindow* SourceWindow;
+        public ImGuiWindow* RestoreNavWindow;
         public int ParentNavLayer;
         public int OpenFrameCount;
         public uint OpenParentId;
@@ -26,7 +26,7 @@ namespace ImGuiNET
         public static implicit operator ImGuiPopupDataPtr(IntPtr nativePtr) => new ImGuiPopupDataPtr(nativePtr);
         public ref uint PopupId => ref Unsafe.AsRef<uint>(&NativePtr->PopupId);
         public ImGuiWindowPtr Window => new ImGuiWindowPtr(NativePtr->Window);
-        public ImGuiWindowPtr SourceWindow => new ImGuiWindowPtr(NativePtr->SourceWindow);
+        public ImGuiWindowPtr RestoreNavWindow => new ImGuiWindowPtr(NativePtr->RestoreNavWindow);
         public ref int ParentNavLayer => ref Unsafe.AsRef<int>(&NativePtr->ParentNavLayer);
         public ref int OpenFrameCount => ref Unsafe.AsRef<int>(&NativePtr->OpenFrameCount);
         public ref uint OpenParentId => ref Unsafe.AsRef<uint>(&NativePtr->OpenParentId);

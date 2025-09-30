@@ -12,6 +12,8 @@ namespace ImGuiNET
         HasDeactivated = 32,
         Deactivated = 64,
         HoveredWindow = 128,
-        FocusedByTabbing = 256,
+        Visible = 256,
+        HasClipRect = 512,
+        HasShortcut = 1024,
     }
 }

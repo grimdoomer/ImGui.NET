@@ -5,13 +5,10 @@ namespace ImGuiNET
     {
         None = 0,
         NoTabStop = 1,
-        ButtonRepeat = 2,
-        Disabled = 4,
-        NoNav = 8,
-        NoNavDefaultFocus = 16,
-        SelectableDontClosePopup = 32,
-        MixedValue = 64,
-        ReadOnly = 128,
-        Inputable = 256,
+        NoNav = 2,
+        NoNavDefaultFocus = 4,
+        ButtonRepeat = 8,
+        AutoClosePopups = 16,
+        AllowDuplicateId = 32,
     }
 }

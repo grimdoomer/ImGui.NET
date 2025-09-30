@@ -169,7 +169,9 @@ namespace CodeGenerator
                                 vectorElementType = wellKnown;
                             }
 
-                            if (GetWrappedType(vectorElementType + "*", out string wrappedElementType))
+                            // TODO: need to check if type is a class/struct and wrap in *Ptr variant.
+
+                            if (vectorElementType != "ImPlotColormap" && GetWrappedType(vectorElementType + " * ", out string wrappedElementType) == true)
                             {
                                 writer.WriteLine($"public ImPtrVector<{wrappedElementType}> {field.Name} => new ImPtrVector<{wrappedElementType}>(NativePtr->{field.Name}, Unsafe.SizeOf<{vectorElementType}>());");
                             }
@@ -180,6 +182,45 @@ namespace CodeGenerator
                                     vectorElementType = wrappedElementType;
                                 }
                                 writer.WriteLine($"public ImVector<{vectorElementType}> {field.Name} => new ImVector<{vectorElementType}>(NativePtr->{field.Name});");
+                            }
+                        }
+                        else if (typeStr.Contains("ImStableVector") == true)
+                        {
+                            string[] vectorElements = GetTypeString(field.TemplateType, false).Split(',');
+
+                            string vectorElementType = vectorElements[0];
+                            if (TypeInfo.WellKnownTypes.TryGetValue(vectorElementType, out string wellKnown))
+                            {
+                                vectorElementType = wellKnown;
+                            }
+
+                            if (GetWrappedType(vectorElementType + "*", out string wrappedElementType) == true)
+                            {
+                                vectorElementType = wrappedElementType;
+                            }
+
+                            writer.WriteLine($"public ImStableVector<{vectorElementType}> {field.Name} => new ImStableVector<{vectorElementType}>(NativePtr->{field.Name}, {vectorElements[1]});");
+                        }
+                        else if (typeStr.Contains("ImPool"))
+                        {
+                            string vectorElementType = GetTypeString(field.TemplateType, false);
+
+                            if (TypeInfo.WellKnownTypes.TryGetValue(vectorElementType, out string wellKnown))
+                            {
+                                vectorElementType = wellKnown;
+                            }
+
+                            if (GetWrappedType(vectorElementType + "*", out string wrappedElementType))
+                            {
+                                writer.WriteLine($"public ImPool<{wrappedElementType}> {field.Name} => new ImPool<{wrappedElementType}>(NativePtr->{field.Name});");
+                            }
+                            else
+                            {
+                                if (GetWrappedType(vectorElementType, out wrappedElementType))
+                                {
+                                    vectorElementType = wrappedElementType;
+                                }
+                                writer.WriteLine($"public ImPool<{vectorElementType}> {field.Name} => new ImPool<{vectorElementType}>(NativePtr->{field.Name});");
                             }
                         }
                         else
@@ -440,6 +481,9 @@ namespace CodeGenerator
             string selfName,
             string classPrefix)
         {
+            if (overload.ExportedName == "ImPlotPlot_XAxis__const" || overload.ExportedName == "ImPlotPlot_YAxis__const")
+                return;
+
             if (overload.Parameters.Where(tr => tr.Name.EndsWith("_begin") || tr.Name.EndsWith("_end"))
                 .Any(tr => !defaultValues.ContainsKey(tr.Name)))
             {
@@ -609,10 +653,22 @@ namespace CodeGenerator
                     && !TypeInfo.WellKnownTypes.ContainsKey(tr.Type)
                     && !TypeInfo.WellKnownTypes.ContainsKey(tr.Type.Substring(0, tr.Type.Length - 1)))
                 {
-                    marshalledParameters[i] = new MarshalledParameter(wrappedParamType, false, "native_" + tr.Name, false);
-                    string nativeArgName = "native_" + tr.Name;
-                    marshalledParameters[i] = new MarshalledParameter(wrappedParamType, false, nativeArgName, false);
-                    preCallLines.Add($"{tr.Type} {nativeArgName} = {correctedIdentifier}.NativePtr;");
+                    // Check if the parameter type is an enum or not.
+                    if (tr.IsEnum == true)
+                    {
+                        // TODO: currently only works with one level of indirection.
+                        Debug.Assert(tr.Type.Count(c => c == '*') == 1);
+
+                        string nativeArgName = "native_" + tr.Name;
+                        marshalledParameters[i] = new MarshalledParameter(tr.Type.Replace("*", "") + "[]", true, nativeArgName, false);
+                        marshalledParameters[i].PinTarget = correctedIdentifier;
+                    }
+                    else
+                    {
+                        string nativeArgName = "native_" + tr.Name;
+                        marshalledParameters[i] = new MarshalledParameter(wrappedParamType, false, nativeArgName, false);
+                        preCallLines.Add($"{tr.Type} {nativeArgName} = {correctedIdentifier}.NativePtr;");
+                    }
                 }
                 else if ((tr.Type.EndsWith("*") || tr.Type.Contains("[") || tr.Type.EndsWith("&")) && tr.Type != "void*" && tr.Type != "ImGuiContext*" && tr.Type != "ImPlotContext*"&& tr.Type != "EditorContext*")
                 {
@@ -658,6 +714,8 @@ namespace CodeGenerator
             for (int i = 0; i < marshalledParameters.Length; i++)
             {
                 TypeReference tr = overload.Parameters[i];
+                string typeName = GetTypeString(tr.Type, false);
+
                 if (selfIndex == i)
                 {
                     //Some overloads seem to be generated with IntPtr as self
@@ -676,7 +734,10 @@ namespace CodeGenerator
                 if (mp.IsPinned)
                 {
                     string nativePinType = GetTypeString(tr.Type, false);
-                    writer.PushBlock($"fixed ({nativePinType} native_{tr.Name} = &{mp.PinTarget})");
+                    if (mp.MarshalledType.EndsWith("[]") == true)
+                        writer.PushBlock($"fixed ({nativePinType} native_{tr.Name} = {mp.PinTarget})");
+                    else
+                        writer.PushBlock($"fixed ({nativePinType} native_{tr.Name} = &{mp.PinTarget})");
                 }
 
                 nativeInvocationArgs.Add(mp.VarName);
@@ -817,7 +878,15 @@ namespace CodeGenerator
                 }
                 else
                 {
-                    correctedDefault = $"({tr.Type}){defaultVal}";
+                    // Check if the default value is numeric or symbolic.
+                    if (int.TryParse(defaultVal, out _) == true)
+                        correctedDefault = $"({tr.Type}){defaultVal}";
+                    else
+                    {
+                        // Format proper enum field name.
+                        Debug.Assert(defaultVal.Count(c => c == '_') == 1);
+                        correctedDefault = defaultVal.Replace('_', '.');
+                    }
                 }
                 return true;
             }
@@ -831,6 +900,9 @@ namespace CodeGenerator
             int pointerLevel = 0;
             if (typeName.EndsWith("**")) { pointerLevel = 2; }
             else if (typeName.EndsWith("*")) { pointerLevel = 1; }
+
+            if (typeName.StartsWith("struct ") == true)
+                typeName = typeName.Substring("struct ".Length);
 
             if (!TypeInfo.WellKnownTypes.TryGetValue(typeName, out string typeStr))
             {

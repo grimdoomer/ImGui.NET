@@ -10,9 +10,11 @@ namespace ImGuiNET
         NoCloseWithMiddleMouseButton = 8,
         NoTabListScrollingButtons = 16,
         NoTooltip = 32,
-        FittingPolicyResizeDown = 64,
-        FittingPolicyScroll = 128,
-        FittingPolicyMask = 192,
-        FittingPolicyDefault = 64,
+        DrawSelectedOverline = 64,
+        FittingPolicyMixed = 128,
+        FittingPolicyShrink = 256,
+        FittingPolicyScroll = 512,
+        FittingPolicyMask = 896,
+        FittingPolicyDefault = 128,
     }
 }

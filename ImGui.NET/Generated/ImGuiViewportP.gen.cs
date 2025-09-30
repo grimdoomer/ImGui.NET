@@ -8,28 +8,29 @@ namespace ImGuiNET
     public unsafe partial struct ImGuiViewportP
     {
         public ImGuiViewport _ImGuiViewport;
+        public ImGuiWindow* Window;
         public int Idx;
         public int LastFrameActive;
-        public int LastFrontMostStampCount;
+        public int LastFocusedStampCount;
         public uint LastNameHash;
         public Vector2 LastPos;
+        public Vector2 LastSize;
         public float Alpha;
         public float LastAlpha;
+        public byte LastFocusedHadNavWindow;
         public short PlatformMonitor;
-        public byte PlatformWindowCreated;
-        public ImGuiWindow* Window;
-        public fixed int DrawListsLastFrame[2];
-        public ImDrawList* DrawLists_0;
-        public ImDrawList* DrawLists_1;
+        public fixed int BgFgDrawListsLastFrame[2];
+        public ImDrawList* BgFgDrawLists_0;
+        public ImDrawList* BgFgDrawLists_1;
         public ImDrawData DrawDataP;
         public ImDrawDataBuilder DrawDataBuilder;
         public Vector2 LastPlatformPos;
         public Vector2 LastPlatformSize;
         public Vector2 LastRendererSize;
-        public Vector2 WorkOffsetMin;
-        public Vector2 WorkOffsetMax;
-        public Vector2 BuildWorkOffsetMin;
-        public Vector2 BuildWorkOffsetMax;
+        public Vector2 WorkInsetMin;
+        public Vector2 WorkInsetMax;
+        public Vector2 BuildWorkInsetMin;
+        public Vector2 BuildWorkInsetMax;
     }
     public unsafe partial struct ImGuiViewportPPtr
     {
@@ -40,37 +41,38 @@ namespace ImGuiNET
         public static implicit operator ImGuiViewportP* (ImGuiViewportPPtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImGuiViewportPPtr(IntPtr nativePtr) => new ImGuiViewportPPtr(nativePtr);
         public ref ImGuiViewport _ImGuiViewport => ref Unsafe.AsRef<ImGuiViewport>(&NativePtr->_ImGuiViewport);
+        public ImGuiWindowPtr Window => new ImGuiWindowPtr(NativePtr->Window);
         public ref int Idx => ref Unsafe.AsRef<int>(&NativePtr->Idx);
         public ref int LastFrameActive => ref Unsafe.AsRef<int>(&NativePtr->LastFrameActive);
-        public ref int LastFrontMostStampCount => ref Unsafe.AsRef<int>(&NativePtr->LastFrontMostStampCount);
+        public ref int LastFocusedStampCount => ref Unsafe.AsRef<int>(&NativePtr->LastFocusedStampCount);
         public ref uint LastNameHash => ref Unsafe.AsRef<uint>(&NativePtr->LastNameHash);
         public ref Vector2 LastPos => ref Unsafe.AsRef<Vector2>(&NativePtr->LastPos);
+        public ref Vector2 LastSize => ref Unsafe.AsRef<Vector2>(&NativePtr->LastSize);
         public ref float Alpha => ref Unsafe.AsRef<float>(&NativePtr->Alpha);
         public ref float LastAlpha => ref Unsafe.AsRef<float>(&NativePtr->LastAlpha);
+        public ref bool LastFocusedHadNavWindow => ref Unsafe.AsRef<bool>(&NativePtr->LastFocusedHadNavWindow);
         public ref short PlatformMonitor => ref Unsafe.AsRef<short>(&NativePtr->PlatformMonitor);
-        public ref bool PlatformWindowCreated => ref Unsafe.AsRef<bool>(&NativePtr->PlatformWindowCreated);
-        public ImGuiWindowPtr Window => new ImGuiWindowPtr(NativePtr->Window);
-        public RangeAccessor<int> DrawListsLastFrame => new RangeAccessor<int>(NativePtr->DrawListsLastFrame, 2);
-        public RangeAccessor<IntPtr> DrawLists => new RangeAccessor<IntPtr>(&NativePtr->DrawLists_0, 2);
+        public RangeAccessor<int> BgFgDrawListsLastFrame => new RangeAccessor<int>(NativePtr->BgFgDrawListsLastFrame, 2);
+        public RangeAccessor<IntPtr> BgFgDrawLists => new RangeAccessor<IntPtr>(&NativePtr->BgFgDrawLists_0, 2);
         public ref ImDrawData DrawDataP => ref Unsafe.AsRef<ImDrawData>(&NativePtr->DrawDataP);
         public ref ImDrawDataBuilder DrawDataBuilder => ref Unsafe.AsRef<ImDrawDataBuilder>(&NativePtr->DrawDataBuilder);
         public ref Vector2 LastPlatformPos => ref Unsafe.AsRef<Vector2>(&NativePtr->LastPlatformPos);
         public ref Vector2 LastPlatformSize => ref Unsafe.AsRef<Vector2>(&NativePtr->LastPlatformSize);
         public ref Vector2 LastRendererSize => ref Unsafe.AsRef<Vector2>(&NativePtr->LastRendererSize);
-        public ref Vector2 WorkOffsetMin => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkOffsetMin);
-        public ref Vector2 WorkOffsetMax => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkOffsetMax);
-        public ref Vector2 BuildWorkOffsetMin => ref Unsafe.AsRef<Vector2>(&NativePtr->BuildWorkOffsetMin);
-        public ref Vector2 BuildWorkOffsetMax => ref Unsafe.AsRef<Vector2>(&NativePtr->BuildWorkOffsetMax);
-        public Vector2 CalcWorkRectPos(Vector2 off_min)
+        public ref Vector2 WorkInsetMin => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkInsetMin);
+        public ref Vector2 WorkInsetMax => ref Unsafe.AsRef<Vector2>(&NativePtr->WorkInsetMax);
+        public ref Vector2 BuildWorkInsetMin => ref Unsafe.AsRef<Vector2>(&NativePtr->BuildWorkInsetMin);
+        public ref Vector2 BuildWorkInsetMax => ref Unsafe.AsRef<Vector2>(&NativePtr->BuildWorkInsetMax);
+        public Vector2 CalcWorkRectPos(Vector2 inset_min)
         {
             Vector2 __retval;
-            ImGuiNative.ImGuiViewportP_CalcWorkRectPos(&__retval, (ImGuiViewportP*)(NativePtr), off_min);
+            ImGuiNative.ImGuiViewportP_CalcWorkRectPos(&__retval, (ImGuiViewportP*)(NativePtr), inset_min);
             return __retval;
         }
-        public Vector2 CalcWorkRectSize(Vector2 off_min, Vector2 off_max)
+        public Vector2 CalcWorkRectSize(Vector2 inset_min, Vector2 inset_max)
         {
             Vector2 __retval;
-            ImGuiNative.ImGuiViewportP_CalcWorkRectSize(&__retval, (ImGuiViewportP*)(NativePtr), off_min, off_max);
+            ImGuiNative.ImGuiViewportP_CalcWorkRectSize(&__retval, (ImGuiViewportP*)(NativePtr), inset_min, inset_max);
             return __retval;
         }
         public void ClearRequestFlags()

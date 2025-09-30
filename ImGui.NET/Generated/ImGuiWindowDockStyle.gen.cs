@@ -7,7 +7,7 @@ namespace ImGuiNET
 {
     public unsafe partial struct ImGuiWindowDockStyle
     {
-        public fixed uint Colors[6];
+        public fixed uint Colors[8];
     }
     public unsafe partial struct ImGuiWindowDockStylePtr
     {
@@ -17,6 +17,6 @@ namespace ImGuiNET
         public static implicit operator ImGuiWindowDockStylePtr(ImGuiWindowDockStyle* nativePtr) => new ImGuiWindowDockStylePtr(nativePtr);
         public static implicit operator ImGuiWindowDockStyle* (ImGuiWindowDockStylePtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImGuiWindowDockStylePtr(IntPtr nativePtr) => new ImGuiWindowDockStylePtr(nativePtr);
-        public RangeAccessor<uint> Colors => new RangeAccessor<uint>(NativePtr->Colors, 6);
+        public RangeAccessor<uint> Colors => new RangeAccessor<uint>(NativePtr->Colors, 8);
     }
 }

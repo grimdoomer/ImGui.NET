@@ -7,7 +7,7 @@ namespace ImGuiNET
 {
     public unsafe partial struct ImGuiNextWindowData
     {
-        public ImGuiNextWindowDataFlags Flags;
+        public ImGuiNextWindowDataFlags HasFlags;
         public ImGuiCond PosCond;
         public ImGuiCond SizeCond;
         public ImGuiCond CollapsedCond;
@@ -17,6 +17,8 @@ namespace ImGuiNET
         public Vector2 SizeVal;
         public Vector2 ContentSizeVal;
         public Vector2 ScrollVal;
+        public ImGuiWindowFlags WindowFlags;
+        public ImGuiChildFlags ChildFlags;
         public byte PosUndock;
         public byte CollapsedVal;
         public ImRect SizeConstraintRect;
@@ -27,6 +29,7 @@ namespace ImGuiNET
         public uint DockId;
         public ImGuiWindowClass WindowClass;
         public Vector2 MenuBarOffsetMinVal;
+        public ImGuiWindowRefreshFlags RefreshFlagsVal;
     }
     public unsafe partial struct ImGuiNextWindowDataPtr
     {
@@ -36,7 +39,7 @@ namespace ImGuiNET
         public static implicit operator ImGuiNextWindowDataPtr(ImGuiNextWindowData* nativePtr) => new ImGuiNextWindowDataPtr(nativePtr);
         public static implicit operator ImGuiNextWindowData* (ImGuiNextWindowDataPtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImGuiNextWindowDataPtr(IntPtr nativePtr) => new ImGuiNextWindowDataPtr(nativePtr);
-        public ref ImGuiNextWindowDataFlags Flags => ref Unsafe.AsRef<ImGuiNextWindowDataFlags>(&NativePtr->Flags);
+        public ref ImGuiNextWindowDataFlags HasFlags => ref Unsafe.AsRef<ImGuiNextWindowDataFlags>(&NativePtr->HasFlags);
         public ref ImGuiCond PosCond => ref Unsafe.AsRef<ImGuiCond>(&NativePtr->PosCond);
         public ref ImGuiCond SizeCond => ref Unsafe.AsRef<ImGuiCond>(&NativePtr->SizeCond);
         public ref ImGuiCond CollapsedCond => ref Unsafe.AsRef<ImGuiCond>(&NativePtr->CollapsedCond);
@@ -46,6 +49,8 @@ namespace ImGuiNET
         public ref Vector2 SizeVal => ref Unsafe.AsRef<Vector2>(&NativePtr->SizeVal);
         public ref Vector2 ContentSizeVal => ref Unsafe.AsRef<Vector2>(&NativePtr->ContentSizeVal);
         public ref Vector2 ScrollVal => ref Unsafe.AsRef<Vector2>(&NativePtr->ScrollVal);
+        public ref ImGuiWindowFlags WindowFlags => ref Unsafe.AsRef<ImGuiWindowFlags>(&NativePtr->WindowFlags);
+        public ref ImGuiChildFlags ChildFlags => ref Unsafe.AsRef<ImGuiChildFlags>(&NativePtr->ChildFlags);
         public ref bool PosUndock => ref Unsafe.AsRef<bool>(&NativePtr->PosUndock);
         public ref bool CollapsedVal => ref Unsafe.AsRef<bool>(&NativePtr->CollapsedVal);
         public ref ImRect SizeConstraintRect => ref Unsafe.AsRef<ImRect>(&NativePtr->SizeConstraintRect);
@@ -56,6 +61,7 @@ namespace ImGuiNET
         public ref uint DockId => ref Unsafe.AsRef<uint>(&NativePtr->DockId);
         public ref ImGuiWindowClass WindowClass => ref Unsafe.AsRef<ImGuiWindowClass>(&NativePtr->WindowClass);
         public ref Vector2 MenuBarOffsetMinVal => ref Unsafe.AsRef<Vector2>(&NativePtr->MenuBarOffsetMinVal);
+        public ref ImGuiWindowRefreshFlags RefreshFlagsVal => ref Unsafe.AsRef<ImGuiWindowRefreshFlags>(&NativePtr->RefreshFlagsVal);
         public void ClearFlags()
         {
             ImGuiNative.ImGuiNextWindowData_ClearFlags((ImGuiNextWindowData*)(NativePtr));

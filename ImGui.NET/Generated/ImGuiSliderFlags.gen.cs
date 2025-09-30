@@ -4,10 +4,14 @@ namespace ImGuiNET
     public enum ImGuiSliderFlags
     {
         None = 0,
-        AlwaysClamp = 16,
         Logarithmic = 32,
         NoRoundToFormat = 64,
         NoInput = 128,
+        WrapAround = 256,
+        ClampOnInput = 512,
+        ClampZeroRange = 1024,
+        NoSpeedTweaks = 2048,
+        AlwaysClamp = 1536,
         InvalidMask = 1879048207,
     }
 }

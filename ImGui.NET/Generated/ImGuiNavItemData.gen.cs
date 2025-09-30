@@ -11,10 +11,11 @@ namespace ImGuiNET
         public uint ID;
         public uint FocusScopeId;
         public ImRect RectRel;
-        public ImGuiItemFlags InFlags;
+        public ImGuiItemFlags ItemFlags;
         public float DistBox;
         public float DistCenter;
         public float DistAxial;
+        public long SelectionUserData;
     }
     public unsafe partial struct ImGuiNavItemDataPtr
     {
@@ -28,10 +29,11 @@ namespace ImGuiNET
         public ref uint ID => ref Unsafe.AsRef<uint>(&NativePtr->ID);
         public ref uint FocusScopeId => ref Unsafe.AsRef<uint>(&NativePtr->FocusScopeId);
         public ref ImRect RectRel => ref Unsafe.AsRef<ImRect>(&NativePtr->RectRel);
-        public ref ImGuiItemFlags InFlags => ref Unsafe.AsRef<ImGuiItemFlags>(&NativePtr->InFlags);
+        public ref ImGuiItemFlags ItemFlags => ref Unsafe.AsRef<ImGuiItemFlags>(&NativePtr->ItemFlags);
         public ref float DistBox => ref Unsafe.AsRef<float>(&NativePtr->DistBox);
         public ref float DistCenter => ref Unsafe.AsRef<float>(&NativePtr->DistCenter);
         public ref float DistAxial => ref Unsafe.AsRef<float>(&NativePtr->DistAxial);
+        public ref long SelectionUserData => ref Unsafe.AsRef<long>(&NativePtr->SelectionUserData);
         public void Clear()
         {
             ImGuiNative.ImGuiNavItemData_Clear((ImGuiNavItemData*)(NativePtr));

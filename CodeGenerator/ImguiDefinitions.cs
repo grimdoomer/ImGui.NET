@@ -346,6 +346,30 @@ namespace CodeGenerator
                 }
             }
 
+            if (Type.StartsWith("ImStableVector_") == true)
+            {
+                if (Type.EndsWith("*"))
+                {
+                    Type = "ImStableVector*";
+                }
+                else
+                {
+                    Type = "ImStableVector";
+                }
+            }
+
+            if (Type.StartsWith("ImPool_"))
+            {
+                if (Type.EndsWith("*"))
+                {
+                    Type = "ImPool*";
+                }
+                else
+                {
+                    Type = "ImPool";
+                }
+            }
+
             if (Type.StartsWith("ImSpan_") == true)
             {
                 if (Type.EndsWith("*") == true)
@@ -382,7 +406,8 @@ namespace CodeGenerator
             
             TypeVariants = typeVariants;
 
-            IsEnum = enums.Any(t => t.Name == type || t.FriendlyName == type || TypeInfo.WellKnownEnums.Contains(type));
+            string typeNameNoIndirection = type.Replace("*", "");
+            IsEnum = enums.Any(t => t.Name == typeNameNoIndirection || t.FriendlyName == typeNameNoIndirection || TypeInfo.WellKnownEnums.Contains(typeNameNoIndirection));
         }
         
         private int ParseSizeString(string sizePart, EnumDefinition[] enums)

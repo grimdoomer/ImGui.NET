@@ -28,6 +28,11 @@ namespace ImGuiNET
         {
             ImGuiNative.ImRect_Add_Rect((ImRect*)(NativePtr), r);
         }
+        public Vector4* AsVec4()
+        {
+            Vector4* ret = ImGuiNative.ImRect_AsVec4((ImRect*)(NativePtr));
+            return ret;
+        }
         public void ClipWith(ImRect r)
         {
             ImGuiNative.ImRect_ClipWith((ImRect*)(NativePtr), r);
@@ -44,6 +49,11 @@ namespace ImGuiNET
         public bool Contains(ImRect r)
         {
             byte ret = ImGuiNative.ImRect_Contains_Rect((ImRect*)(NativePtr), r);
+            return ret != 0;
+        }
+        public bool ContainsWithPad(Vector2 p, Vector2 pad)
+        {
+            byte ret = ImGuiNative.ImRect_ContainsWithPad((ImRect*)(NativePtr), p, pad);
             return ret != 0;
         }
         public void Destroy()

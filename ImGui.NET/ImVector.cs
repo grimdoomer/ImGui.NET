@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace ImGuiNET
@@ -31,6 +32,22 @@ namespace ImGuiNET
             Size = vector.Size;
             Capacity = vector.Capacity;
             Data = vector.Data;
+        }
+
+        public ImVector(ImVector* vector)
+        {
+            if (vector != null)
+            {
+                Size = vector->Size;
+                Capacity = vector->Capacity;
+                Data = vector->Data;
+            }
+            else
+            {
+                Size = 0;
+                Capacity = 0;
+                Data = IntPtr.Zero;
+            }
         }
 
         public ImVector(int size, int capacity, IntPtr data)
@@ -70,6 +87,31 @@ namespace ImGuiNET
                 T ret = Unsafe.Read<T>(&address);
                 return ret;
             }
+        }
+    }
+
+    public unsafe struct ImStableVector
+    {
+        public readonly int Size;
+        public readonly int Capacity;
+        public readonly ImVector Blocks;
+    }
+
+    public unsafe struct ImStableVector<T>
+    {
+        public readonly int Size;
+        public readonly int Capacity;
+        public readonly ImVector Blocks;
+        public readonly int BlockSize;
+        private readonly int _stride;
+
+        public ImStableVector(ImStableVector vector, int blockSize)
+        {
+            this.Size = vector.Size;
+            this.Capacity = vector.Capacity;
+            this.Blocks = vector.Blocks;
+            this.BlockSize = blockSize;
+            this._stride = Unsafe.SizeOf<T>();
         }
     }
 }

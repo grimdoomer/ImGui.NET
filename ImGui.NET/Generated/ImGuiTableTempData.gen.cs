@@ -9,6 +9,8 @@ namespace ImGuiNET
     {
         public int TableIndex;
         public float LastTimeActive;
+        public float AngledHeadersExtraWidth;
+        public ImVector AngledHeadersRequests;
         public Vector2 UserOuterSize;
         public ImDrawListSplitter DrawSplitter;
         public ImRect HostBackupWorkRect;
@@ -30,6 +32,8 @@ namespace ImGuiNET
         public static implicit operator ImGuiTableTempDataPtr(IntPtr nativePtr) => new ImGuiTableTempDataPtr(nativePtr);
         public ref int TableIndex => ref Unsafe.AsRef<int>(&NativePtr->TableIndex);
         public ref float LastTimeActive => ref Unsafe.AsRef<float>(&NativePtr->LastTimeActive);
+        public ref float AngledHeadersExtraWidth => ref Unsafe.AsRef<float>(&NativePtr->AngledHeadersExtraWidth);
+        public ImPtrVector<ImGuiTableHeaderDataPtr> AngledHeadersRequests => new ImPtrVector<ImGuiTableHeaderDataPtr>(NativePtr->AngledHeadersRequests, Unsafe.SizeOf<ImGuiTableHeaderData>());
         public ref Vector2 UserOuterSize => ref Unsafe.AsRef<Vector2>(&NativePtr->UserOuterSize);
         public ref ImDrawListSplitter DrawSplitter => ref Unsafe.AsRef<ImDrawListSplitter>(&NativePtr->DrawSplitter);
         public ref ImRect HostBackupWorkRect => ref Unsafe.AsRef<ImRect>(&NativePtr->HostBackupWorkRect);

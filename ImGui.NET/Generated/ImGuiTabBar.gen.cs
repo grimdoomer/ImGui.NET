@@ -7,6 +7,7 @@ namespace ImGuiNET
 {
     public unsafe partial struct ImGuiTabBar
     {
+        public ImGuiWindow* Window;
         public ImVector Tabs;
         public ImGuiTabBarFlags Flags;
         public uint ID;
@@ -16,6 +17,7 @@ namespace ImGuiNET
         public int CurrFrameVisible;
         public int PrevFrameVisible;
         public ImRect BarRect;
+        public float BarRectPrevWidth;
         public float CurrTabsContentsHeight;
         public float PrevTabsContentsHeight;
         public float WidthAllTabs;
@@ -26,12 +28,15 @@ namespace ImGuiNET
         public float ScrollingSpeed;
         public float ScrollingRectMinX;
         public float ScrollingRectMaxX;
+        public float SeparatorMinX;
+        public float SeparatorMaxX;
         public uint ReorderRequestTabId;
         public short ReorderRequestOffset;
         public sbyte BeginCount;
         public byte WantLayout;
         public byte VisibleTabWasSubmitted;
         public byte TabsAddedNew;
+        public byte ScrollButtonEnabled;
         public short TabsActiveCount;
         public short LastTabItemIdx;
         public float ItemSpacingY;
@@ -47,6 +52,7 @@ namespace ImGuiNET
         public static implicit operator ImGuiTabBarPtr(ImGuiTabBar* nativePtr) => new ImGuiTabBarPtr(nativePtr);
         public static implicit operator ImGuiTabBar* (ImGuiTabBarPtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImGuiTabBarPtr(IntPtr nativePtr) => new ImGuiTabBarPtr(nativePtr);
+        public ImGuiWindowPtr Window => new ImGuiWindowPtr(NativePtr->Window);
         public ImPtrVector<ImGuiTabItemPtr> Tabs => new ImPtrVector<ImGuiTabItemPtr>(NativePtr->Tabs, Unsafe.SizeOf<ImGuiTabItem>());
         public ref ImGuiTabBarFlags Flags => ref Unsafe.AsRef<ImGuiTabBarFlags>(&NativePtr->Flags);
         public ref uint ID => ref Unsafe.AsRef<uint>(&NativePtr->ID);
@@ -56,6 +62,7 @@ namespace ImGuiNET
         public ref int CurrFrameVisible => ref Unsafe.AsRef<int>(&NativePtr->CurrFrameVisible);
         public ref int PrevFrameVisible => ref Unsafe.AsRef<int>(&NativePtr->PrevFrameVisible);
         public ref ImRect BarRect => ref Unsafe.AsRef<ImRect>(&NativePtr->BarRect);
+        public ref float BarRectPrevWidth => ref Unsafe.AsRef<float>(&NativePtr->BarRectPrevWidth);
         public ref float CurrTabsContentsHeight => ref Unsafe.AsRef<float>(&NativePtr->CurrTabsContentsHeight);
         public ref float PrevTabsContentsHeight => ref Unsafe.AsRef<float>(&NativePtr->PrevTabsContentsHeight);
         public ref float WidthAllTabs => ref Unsafe.AsRef<float>(&NativePtr->WidthAllTabs);
@@ -66,12 +73,15 @@ namespace ImGuiNET
         public ref float ScrollingSpeed => ref Unsafe.AsRef<float>(&NativePtr->ScrollingSpeed);
         public ref float ScrollingRectMinX => ref Unsafe.AsRef<float>(&NativePtr->ScrollingRectMinX);
         public ref float ScrollingRectMaxX => ref Unsafe.AsRef<float>(&NativePtr->ScrollingRectMaxX);
+        public ref float SeparatorMinX => ref Unsafe.AsRef<float>(&NativePtr->SeparatorMinX);
+        public ref float SeparatorMaxX => ref Unsafe.AsRef<float>(&NativePtr->SeparatorMaxX);
         public ref uint ReorderRequestTabId => ref Unsafe.AsRef<uint>(&NativePtr->ReorderRequestTabId);
         public ref short ReorderRequestOffset => ref Unsafe.AsRef<short>(&NativePtr->ReorderRequestOffset);
         public ref sbyte BeginCount => ref Unsafe.AsRef<sbyte>(&NativePtr->BeginCount);
         public ref bool WantLayout => ref Unsafe.AsRef<bool>(&NativePtr->WantLayout);
         public ref bool VisibleTabWasSubmitted => ref Unsafe.AsRef<bool>(&NativePtr->VisibleTabWasSubmitted);
         public ref bool TabsAddedNew => ref Unsafe.AsRef<bool>(&NativePtr->TabsAddedNew);
+        public ref bool ScrollButtonEnabled => ref Unsafe.AsRef<bool>(&NativePtr->ScrollButtonEnabled);
         public ref short TabsActiveCount => ref Unsafe.AsRef<short>(&NativePtr->TabsActiveCount);
         public ref short LastTabItemIdx => ref Unsafe.AsRef<short>(&NativePtr->LastTabItemIdx);
         public ref float ItemSpacingY => ref Unsafe.AsRef<float>(&NativePtr->ItemSpacingY);
@@ -81,18 +91,6 @@ namespace ImGuiNET
         public void Destroy()
         {
             ImGuiNative.ImGuiTabBar_destroy((ImGuiTabBar*)(NativePtr));
-        }
-        public string GetTabName(ImGuiTabItemPtr tab)
-        {
-            ImGuiTabItem* native_tab = tab.NativePtr;
-            byte* ret = ImGuiNative.ImGuiTabBar_GetTabName((ImGuiTabBar*)(NativePtr), native_tab);
-            return Util.StringFromPtr(ret);
-        }
-        public int GetTabOrder(ImGuiTabItemPtr tab)
-        {
-            ImGuiTabItem* native_tab = tab.NativePtr;
-            int ret = ImGuiNative.ImGuiTabBar_GetTabOrder((ImGuiTabBar*)(NativePtr), native_tab);
-            return ret;
         }
     }
 }

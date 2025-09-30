@@ -13,6 +13,7 @@ namespace ImGuiNET
         public float MaxX;
         public float WidthRequest;
         public float WidthAuto;
+        public float WidthMax;
         public float StretchWeight;
         public float InitStretchWeightOrWidth;
         public ImRect ClipRect;
@@ -63,6 +64,7 @@ namespace ImGuiNET
         public ref float MaxX => ref Unsafe.AsRef<float>(&NativePtr->MaxX);
         public ref float WidthRequest => ref Unsafe.AsRef<float>(&NativePtr->WidthRequest);
         public ref float WidthAuto => ref Unsafe.AsRef<float>(&NativePtr->WidthAuto);
+        public ref float WidthMax => ref Unsafe.AsRef<float>(&NativePtr->WidthMax);
         public ref float StretchWeight => ref Unsafe.AsRef<float>(&NativePtr->StretchWeight);
         public ref float InitStretchWeightOrWidth => ref Unsafe.AsRef<float>(&NativePtr->InitStretchWeightOrWidth);
         public ref ImRect ClipRect => ref Unsafe.AsRef<ImRect>(&NativePtr->ClipRect);

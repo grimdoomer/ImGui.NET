@@ -12,8 +12,11 @@ namespace ImGuiNET
         HasFocus = 32,
         HasBgAlpha = 64,
         HasScroll = 128,
-        HasViewport = 256,
-        HasDock = 512,
-        HasWindowClass = 1024,
+        HasWindowFlags = 256,
+        HasChildFlags = 512,
+        HasRefreshPolicy = 1024,
+        HasViewport = 2048,
+        HasDock = 4096,
+        HasWindowClass = 8192,
     }
 }

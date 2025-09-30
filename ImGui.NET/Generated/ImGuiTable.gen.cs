@@ -14,10 +14,9 @@ namespace ImGuiNET
         public ImSpan Columns;
         public ImSpan DisplayOrderToIndex;
         public ImSpan RowCellData;
-        public ulong EnabledMaskByDisplayOrder;
-        public ulong EnabledMaskByIndex;
-        public ulong VisibleMaskByIndex;
-        public ulong RequestOutputMaskByIndex;
+        public uint EnabledMaskByDisplayOrder;
+        public uint EnabledMaskByIndex;
+        public uint VisibleMaskByIndex;
         public ImGuiTableFlags SettingsLoadedFlags;
         public int SettingsOffset;
         public int LastFrameActive;
@@ -29,6 +28,7 @@ namespace ImGuiNET
         public float RowPosY1;
         public float RowPosY2;
         public float RowMinHeight;
+        public float RowCellPaddingY;
         public float RowTextBaseline;
         public float RowIndentOffsetX;
         public ImGuiTableRowFlags RowFlags;
@@ -43,7 +43,6 @@ namespace ImGuiNET
         public float MinColumnWidth;
         public float OuterPaddingX;
         public float CellPaddingX;
-        public float CellPaddingY;
         public float CellSpacingX1;
         public float CellSpacingX2;
         public float InnerWidth;
@@ -53,6 +52,8 @@ namespace ImGuiNET
         public float ResizedColumnNextWidth;
         public float ResizeLockMinContentsX2;
         public float RefScale;
+        public float AngledHeadersHeight;
+        public float AngledHeadersSlope;
         public ImRect OuterRect;
         public ImRect InnerRect;
         public ImRect WorkRect;
@@ -75,8 +76,10 @@ namespace ImGuiNET
         public sbyte ColumnsEnabledCount;
         public sbyte ColumnsEnabledFixedCount;
         public sbyte DeclColumnsCount;
+        public sbyte AngledHeadersCount;
         public sbyte HoveredColumnBody;
         public sbyte HoveredColumnBorder;
+        public sbyte HighlightColumnHeader;
         public sbyte AutoFitSingleColumn;
         public sbyte ResizedColumn;
         public sbyte LastResizedColumn;
@@ -96,12 +99,14 @@ namespace ImGuiNET
         public byte DummyDrawChannel;
         public byte Bg2DrawChannelCurrent;
         public byte Bg2DrawChannelUnfrozen;
+        public sbyte NavLayer;
         public byte IsLayoutLocked;
         public byte IsInsideRow;
         public byte IsInitializing;
         public byte IsSortSpecsDirty;
         public byte IsUsingHeaders;
         public byte IsContextPopupOpen;
+        public byte DisableDefaultContextMenu;
         public byte IsSettingsRequestLoad;
         public byte IsSettingsDirty;
         public byte IsDefaultDisplayOrder;
@@ -109,6 +114,10 @@ namespace ImGuiNET
         public byte IsResetDisplayOrderRequest;
         public byte IsUnfrozenRows;
         public byte IsDefaultSizingPolicy;
+        public byte IsActiveIdAliveBeforeTable;
+        public byte IsActiveIdInTable;
+        public byte HasScrollbarYCurr;
+        public byte HasScrollbarYPrev;
         public byte MemoryCompacted;
         public byte HostSkipItems;
     }
@@ -127,10 +136,9 @@ namespace ImGuiNET
         public ref ImSpan Columns => ref Unsafe.AsRef<ImSpan>(&NativePtr->Columns);
         public ref ImSpan DisplayOrderToIndex => ref Unsafe.AsRef<ImSpan>(&NativePtr->DisplayOrderToIndex);
         public ref ImSpan RowCellData => ref Unsafe.AsRef<ImSpan>(&NativePtr->RowCellData);
-        public ref ulong EnabledMaskByDisplayOrder => ref Unsafe.AsRef<ulong>(&NativePtr->EnabledMaskByDisplayOrder);
-        public ref ulong EnabledMaskByIndex => ref Unsafe.AsRef<ulong>(&NativePtr->EnabledMaskByIndex);
-        public ref ulong VisibleMaskByIndex => ref Unsafe.AsRef<ulong>(&NativePtr->VisibleMaskByIndex);
-        public ref ulong RequestOutputMaskByIndex => ref Unsafe.AsRef<ulong>(&NativePtr->RequestOutputMaskByIndex);
+        public ref uint EnabledMaskByDisplayOrder => ref Unsafe.AsRef<uint>(&NativePtr->EnabledMaskByDisplayOrder);
+        public ref uint EnabledMaskByIndex => ref Unsafe.AsRef<uint>(&NativePtr->EnabledMaskByIndex);
+        public ref uint VisibleMaskByIndex => ref Unsafe.AsRef<uint>(&NativePtr->VisibleMaskByIndex);
         public ref ImGuiTableFlags SettingsLoadedFlags => ref Unsafe.AsRef<ImGuiTableFlags>(&NativePtr->SettingsLoadedFlags);
         public ref int SettingsOffset => ref Unsafe.AsRef<int>(&NativePtr->SettingsOffset);
         public ref int LastFrameActive => ref Unsafe.AsRef<int>(&NativePtr->LastFrameActive);
@@ -142,6 +150,7 @@ namespace ImGuiNET
         public ref float RowPosY1 => ref Unsafe.AsRef<float>(&NativePtr->RowPosY1);
         public ref float RowPosY2 => ref Unsafe.AsRef<float>(&NativePtr->RowPosY2);
         public ref float RowMinHeight => ref Unsafe.AsRef<float>(&NativePtr->RowMinHeight);
+        public ref float RowCellPaddingY => ref Unsafe.AsRef<float>(&NativePtr->RowCellPaddingY);
         public ref float RowTextBaseline => ref Unsafe.AsRef<float>(&NativePtr->RowTextBaseline);
         public ref float RowIndentOffsetX => ref Unsafe.AsRef<float>(&NativePtr->RowIndentOffsetX);
         public ref ImGuiTableRowFlags RowFlags => ref Unsafe.AsRef<ImGuiTableRowFlags>(&NativePtr->RowFlags);
@@ -156,7 +165,6 @@ namespace ImGuiNET
         public ref float MinColumnWidth => ref Unsafe.AsRef<float>(&NativePtr->MinColumnWidth);
         public ref float OuterPaddingX => ref Unsafe.AsRef<float>(&NativePtr->OuterPaddingX);
         public ref float CellPaddingX => ref Unsafe.AsRef<float>(&NativePtr->CellPaddingX);
-        public ref float CellPaddingY => ref Unsafe.AsRef<float>(&NativePtr->CellPaddingY);
         public ref float CellSpacingX1 => ref Unsafe.AsRef<float>(&NativePtr->CellSpacingX1);
         public ref float CellSpacingX2 => ref Unsafe.AsRef<float>(&NativePtr->CellSpacingX2);
         public ref float InnerWidth => ref Unsafe.AsRef<float>(&NativePtr->InnerWidth);
@@ -166,6 +174,8 @@ namespace ImGuiNET
         public ref float ResizedColumnNextWidth => ref Unsafe.AsRef<float>(&NativePtr->ResizedColumnNextWidth);
         public ref float ResizeLockMinContentsX2 => ref Unsafe.AsRef<float>(&NativePtr->ResizeLockMinContentsX2);
         public ref float RefScale => ref Unsafe.AsRef<float>(&NativePtr->RefScale);
+        public ref float AngledHeadersHeight => ref Unsafe.AsRef<float>(&NativePtr->AngledHeadersHeight);
+        public ref float AngledHeadersSlope => ref Unsafe.AsRef<float>(&NativePtr->AngledHeadersSlope);
         public ref ImRect OuterRect => ref Unsafe.AsRef<ImRect>(&NativePtr->OuterRect);
         public ref ImRect InnerRect => ref Unsafe.AsRef<ImRect>(&NativePtr->InnerRect);
         public ref ImRect WorkRect => ref Unsafe.AsRef<ImRect>(&NativePtr->WorkRect);
@@ -188,8 +198,10 @@ namespace ImGuiNET
         public ref sbyte ColumnsEnabledCount => ref Unsafe.AsRef<sbyte>(&NativePtr->ColumnsEnabledCount);
         public ref sbyte ColumnsEnabledFixedCount => ref Unsafe.AsRef<sbyte>(&NativePtr->ColumnsEnabledFixedCount);
         public ref sbyte DeclColumnsCount => ref Unsafe.AsRef<sbyte>(&NativePtr->DeclColumnsCount);
+        public ref sbyte AngledHeadersCount => ref Unsafe.AsRef<sbyte>(&NativePtr->AngledHeadersCount);
         public ref sbyte HoveredColumnBody => ref Unsafe.AsRef<sbyte>(&NativePtr->HoveredColumnBody);
         public ref sbyte HoveredColumnBorder => ref Unsafe.AsRef<sbyte>(&NativePtr->HoveredColumnBorder);
+        public ref sbyte HighlightColumnHeader => ref Unsafe.AsRef<sbyte>(&NativePtr->HighlightColumnHeader);
         public ref sbyte AutoFitSingleColumn => ref Unsafe.AsRef<sbyte>(&NativePtr->AutoFitSingleColumn);
         public ref sbyte ResizedColumn => ref Unsafe.AsRef<sbyte>(&NativePtr->ResizedColumn);
         public ref sbyte LastResizedColumn => ref Unsafe.AsRef<sbyte>(&NativePtr->LastResizedColumn);
@@ -209,12 +221,14 @@ namespace ImGuiNET
         public ref byte DummyDrawChannel => ref Unsafe.AsRef<byte>(&NativePtr->DummyDrawChannel);
         public ref byte Bg2DrawChannelCurrent => ref Unsafe.AsRef<byte>(&NativePtr->Bg2DrawChannelCurrent);
         public ref byte Bg2DrawChannelUnfrozen => ref Unsafe.AsRef<byte>(&NativePtr->Bg2DrawChannelUnfrozen);
+        public ref sbyte NavLayer => ref Unsafe.AsRef<sbyte>(&NativePtr->NavLayer);
         public ref bool IsLayoutLocked => ref Unsafe.AsRef<bool>(&NativePtr->IsLayoutLocked);
         public ref bool IsInsideRow => ref Unsafe.AsRef<bool>(&NativePtr->IsInsideRow);
         public ref bool IsInitializing => ref Unsafe.AsRef<bool>(&NativePtr->IsInitializing);
         public ref bool IsSortSpecsDirty => ref Unsafe.AsRef<bool>(&NativePtr->IsSortSpecsDirty);
         public ref bool IsUsingHeaders => ref Unsafe.AsRef<bool>(&NativePtr->IsUsingHeaders);
         public ref bool IsContextPopupOpen => ref Unsafe.AsRef<bool>(&NativePtr->IsContextPopupOpen);
+        public ref bool DisableDefaultContextMenu => ref Unsafe.AsRef<bool>(&NativePtr->DisableDefaultContextMenu);
         public ref bool IsSettingsRequestLoad => ref Unsafe.AsRef<bool>(&NativePtr->IsSettingsRequestLoad);
         public ref bool IsSettingsDirty => ref Unsafe.AsRef<bool>(&NativePtr->IsSettingsDirty);
         public ref bool IsDefaultDisplayOrder => ref Unsafe.AsRef<bool>(&NativePtr->IsDefaultDisplayOrder);
@@ -222,6 +236,10 @@ namespace ImGuiNET
         public ref bool IsResetDisplayOrderRequest => ref Unsafe.AsRef<bool>(&NativePtr->IsResetDisplayOrderRequest);
         public ref bool IsUnfrozenRows => ref Unsafe.AsRef<bool>(&NativePtr->IsUnfrozenRows);
         public ref bool IsDefaultSizingPolicy => ref Unsafe.AsRef<bool>(&NativePtr->IsDefaultSizingPolicy);
+        public ref bool IsActiveIdAliveBeforeTable => ref Unsafe.AsRef<bool>(&NativePtr->IsActiveIdAliveBeforeTable);
+        public ref bool IsActiveIdInTable => ref Unsafe.AsRef<bool>(&NativePtr->IsActiveIdInTable);
+        public ref bool HasScrollbarYCurr => ref Unsafe.AsRef<bool>(&NativePtr->HasScrollbarYCurr);
+        public ref bool HasScrollbarYPrev => ref Unsafe.AsRef<bool>(&NativePtr->HasScrollbarYPrev);
         public ref bool MemoryCompacted => ref Unsafe.AsRef<bool>(&NativePtr->MemoryCompacted);
         public ref bool HostSkipItems => ref Unsafe.AsRef<bool>(&NativePtr->HostSkipItems);
         public void Destroy()

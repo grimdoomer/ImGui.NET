@@ -103,6 +103,10 @@ namespace ImGuiNET
         {
             ImGuiNative.ImGuiTextBuffer_reserve((ImGuiTextBuffer*)(NativePtr), capacity);
         }
+        public void resize(int size)
+        {
+            ImGuiNative.ImGuiTextBuffer_resize((ImGuiTextBuffer*)(NativePtr), size);
+        }
         public int size()
         {
             int ret = ImGuiNative.ImGuiTextBuffer_size((ImGuiTextBuffer*)(NativePtr));

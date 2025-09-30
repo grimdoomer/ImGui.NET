@@ -4,6 +4,6 @@ namespace ImGuiNET
     public enum ImGuiTooltipFlags
     {
         None = 0,
-        OverridePreviousTooltip = 1,
+        OverridePrevious = 2,
     }
 }

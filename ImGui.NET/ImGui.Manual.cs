@@ -955,12 +955,6 @@ namespace ImGuiNET
             ImGuiNative.igScrollToBringRectIntoView();
         }
 
-        public static float GetWindowContentRegionWidth()
-        {
-            // OBSOLETED in 1.85 (from August 2021)
-            return ImGui.GetWindowContentRegionMax().X - ImGui.GetWindowContentRegionMin().X;
-        }
-
         #endregion
 
         #region DockBuilder

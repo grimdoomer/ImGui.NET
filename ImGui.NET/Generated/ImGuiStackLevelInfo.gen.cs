@@ -10,8 +10,8 @@ namespace ImGuiNET
         public uint ID;
         public sbyte QueryFrameCount;
         public byte QuerySuccess;
-        public ImGuiDataType DataType;
-        public fixed byte Desc[57];
+        public sbyte DataType;
+        public int DescOffset;
     }
     public unsafe partial struct ImGuiStackLevelInfoPtr
     {
@@ -24,8 +24,8 @@ namespace ImGuiNET
         public ref uint ID => ref Unsafe.AsRef<uint>(&NativePtr->ID);
         public ref sbyte QueryFrameCount => ref Unsafe.AsRef<sbyte>(&NativePtr->QueryFrameCount);
         public ref bool QuerySuccess => ref Unsafe.AsRef<bool>(&NativePtr->QuerySuccess);
-        public ref ImGuiDataType DataType => ref Unsafe.AsRef<ImGuiDataType>(&NativePtr->DataType);
-        public RangeAccessor<byte> Desc => new RangeAccessor<byte>(NativePtr->Desc, 57);
+        public ref sbyte DataType => ref Unsafe.AsRef<sbyte>(&NativePtr->DataType);
+        public ref int DescOffset => ref Unsafe.AsRef<int>(&NativePtr->DescOffset);
         public void Destroy()
         {
             ImGuiNative.ImGuiStackLevelInfo_destroy((ImGuiStackLevelInfo*)(NativePtr));

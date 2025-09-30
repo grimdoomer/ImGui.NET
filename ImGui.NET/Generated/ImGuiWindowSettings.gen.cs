@@ -16,7 +16,9 @@ namespace ImGuiNET
         public uint ClassId;
         public short DockOrder;
         public byte Collapsed;
+        public byte IsChild;
         public byte WantApply;
+        public byte WantDelete;
     }
     public unsafe partial struct ImGuiWindowSettingsPtr
     {
@@ -35,7 +37,9 @@ namespace ImGuiNET
         public ref uint ClassId => ref Unsafe.AsRef<uint>(&NativePtr->ClassId);
         public ref short DockOrder => ref Unsafe.AsRef<short>(&NativePtr->DockOrder);
         public ref bool Collapsed => ref Unsafe.AsRef<bool>(&NativePtr->Collapsed);
+        public ref bool IsChild => ref Unsafe.AsRef<bool>(&NativePtr->IsChild);
         public ref bool WantApply => ref Unsafe.AsRef<bool>(&NativePtr->WantApply);
+        public ref bool WantDelete => ref Unsafe.AsRef<bool>(&NativePtr->WantDelete);
         public void Destroy()
         {
             ImGuiNative.ImGuiWindowSettings_destroy((ImGuiWindowSettings*)(NativePtr));

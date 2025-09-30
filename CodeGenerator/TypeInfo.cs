@@ -32,8 +32,8 @@ namespace CodeGenerator
             { "ImTextureID", "IntPtr" },
             { "ImGuiID", "uint" },
             { "ImDrawIdx", "ushort" },
-            { "ImDrawListSharedData", "IntPtr" },
-            { "ImDrawListSharedData*", "IntPtr" },
+            //{ "ImDrawListSharedData", "IntPtr" },
+            //{ "ImDrawListSharedData*", "IntPtr" },
             { "ImDrawCallback", "IntPtr" },
             { "size_t", "uint" },
             { "ImGuiContext*", "IntPtr" },
@@ -54,7 +54,21 @@ namespace CodeGenerator
             { "unsigned char[256]", "byte*"},
             { "ImGuiTableColumnIdx", "sbyte" },
             { "ImGuiTableDrawChannelIdx", "byte" },
-            { "ImGuiSizeCallback", "IntPtr" }
+            { "ImGuiSizeCallback", "IntPtr" },
+            { "ImGuiKeyChord", "int" },
+            { "ImFontAtlasRectId", "int" },
+            { "ImGuiSelectionUserData", "long" },
+            { "ImGuiKeyRoutingIndex", "short" },
+            { "ImBitArrayPtr", "uint" },
+            { "ImPoolIdx", "int" },
+
+            // ImPlot:
+            { "tm", "Time" },
+            { "time_t", "ulong" },      // Note: this is platform specific i.e.: 32bit for x86, 64bit for amd64
+
+            // TODO: work out these types
+            { "stbrp_node_im", "IntPtr" },
+            { "ImStbTexteditState", "IntPtr" },
         };
         
         public static readonly List<string> WellKnownEnums = new List<string>()
@@ -70,10 +84,12 @@ namespace CodeGenerator
         public static readonly HashSet<string> CustomDefinedTypes = new HashSet<string>()
         {
             "ImVector",
+            "ImStableVector",
             "ImVec2",
             "ImVec4",
             "ImGuiStoragePair",
-            "ImGuiPlatformIO"
+            "ImGuiPlatformIO",
+            "ImFontGlyph"
         };
 
         public static readonly Dictionary<string, string> WellKnownDefaultValues = new Dictionary<string, string>()
@@ -114,7 +130,10 @@ namespace CodeGenerator
             { "sizeof(ImU32)", "sizeof(uint)"},
             { "sizeof(ImS32)", "sizeof(int)"},
             { "sizeof(ImU64)", "sizeof(ulong)"},
-            { "sizeof(ImS64)", "sizeof(long)"}
+            { "sizeof(ImS64)", "sizeof(long)"},
+            { "ImPlotRange()", "new ImPlotRange()" },
+            { "ImPlotBin_Sturges", "(int)ImPlotBin.Sturges" },
+            { "ImPlotRect()", "new ImPlotRect()" }
         };
 
         public static readonly Dictionary<string, string> IdentifierReplacements = new Dictionary<string, string>()
@@ -122,6 +141,7 @@ namespace CodeGenerator
             { "in", "@in" },
             { "out", "@out" },
             { "ref", "@ref" },
+            { "base", "@base" }
         };
 
         public static readonly HashSet<string> LegalFixedTypes = new HashSet<string>()
@@ -158,10 +178,10 @@ namespace CodeGenerator
             //"ImGuiLastItemData_ImGuiLastItemData",
             "ImGuiInputEvent_destroy",
             "ImGuiInputEvent_ImGuiInputEvent",
-            "ImGuiStyleMod_destroy",
-            "ImGuiStyleMod_ImGuiStyleMod",
+            //"ImGuiStyleMod_destroy",
+            //"ImGuiStyleMod_ImGuiStyleMod",
             "ImGuiDockContext_destroy",
-            "ImGuiDockContext_ImGuiDockContext"
+            "ImGuiDockContext_ImGuiDockContext",
         };
 
         public static readonly HashSet<string> SkippedTypes = new HashSet<string>()

@@ -7,8 +7,9 @@ namespace ImGuiNET
 {
     public unsafe partial struct ImDrawDataBuilder
     {
-        public ImVector Layers_0;
-        public ImVector Layers_1;
+        public ImVector* Layers_0;
+        public ImVector* Layers_1;
+        public ImVector LayerData1;
     }
     public unsafe partial struct ImDrawDataBuilderPtr
     {
@@ -18,23 +19,11 @@ namespace ImGuiNET
         public static implicit operator ImDrawDataBuilderPtr(ImDrawDataBuilder* nativePtr) => new ImDrawDataBuilderPtr(nativePtr);
         public static implicit operator ImDrawDataBuilder* (ImDrawDataBuilderPtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImDrawDataBuilderPtr(IntPtr nativePtr) => new ImDrawDataBuilderPtr(nativePtr);
-        public RangeAccessor<ImVector> Layers => new RangeAccessor<ImVector>(&NativePtr->Layers_0, 2);
-        public void Clear()
+        public RangeAccessor<IntPtr> Layers => new RangeAccessor<IntPtr>(&NativePtr->Layers_0, 2);
+        public ImVector<ImDrawListPtr> LayerData1 => new ImVector<ImDrawListPtr>(NativePtr->LayerData1);
+        public void Destroy()
         {
-            ImGuiNative.ImDrawDataBuilder_Clear((ImDrawDataBuilder*)(NativePtr));
-        }
-        public void ClearFreeMemory()
-        {
-            ImGuiNative.ImDrawDataBuilder_ClearFreeMemory((ImDrawDataBuilder*)(NativePtr));
-        }
-        public void FlattenIntoSingleLayer()
-        {
-            ImGuiNative.ImDrawDataBuilder_FlattenIntoSingleLayer((ImDrawDataBuilder*)(NativePtr));
-        }
-        public int GetDrawListCount()
-        {
-            int ret = ImGuiNative.ImDrawDataBuilder_GetDrawListCount((ImDrawDataBuilder*)(NativePtr));
-            return ret;
+            ImGuiNative.ImDrawDataBuilder_destroy((ImDrawDataBuilder*)(NativePtr));
         }
     }
 }

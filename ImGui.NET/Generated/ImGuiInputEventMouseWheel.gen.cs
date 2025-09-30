@@ -9,6 +9,7 @@ namespace ImGuiNET
     {
         public float WheelX;
         public float WheelY;
+        public ImGuiMouseSource MouseSource;
     }
     public unsafe partial struct ImGuiInputEventMouseWheelPtr
     {
@@ -20,5 +21,6 @@ namespace ImGuiNET
         public static implicit operator ImGuiInputEventMouseWheelPtr(IntPtr nativePtr) => new ImGuiInputEventMouseWheelPtr(nativePtr);
         public ref float WheelX => ref Unsafe.AsRef<float>(&NativePtr->WheelX);
         public ref float WheelY => ref Unsafe.AsRef<float>(&NativePtr->WheelY);
+        public ref ImGuiMouseSource MouseSource => ref Unsafe.AsRef<ImGuiMouseSource>(&NativePtr->MouseSource);
     }
 }

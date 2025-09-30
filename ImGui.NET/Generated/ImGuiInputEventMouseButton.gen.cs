@@ -9,6 +9,7 @@ namespace ImGuiNET
     {
         public int Button;
         public byte Down;
+        public ImGuiMouseSource MouseSource;
     }
     public unsafe partial struct ImGuiInputEventMouseButtonPtr
     {
@@ -20,5 +21,6 @@ namespace ImGuiNET
         public static implicit operator ImGuiInputEventMouseButtonPtr(IntPtr nativePtr) => new ImGuiInputEventMouseButtonPtr(nativePtr);
         public ref int Button => ref Unsafe.AsRef<int>(&NativePtr->Button);
         public ref bool Down => ref Unsafe.AsRef<bool>(&NativePtr->Down);
+        public ref ImGuiMouseSource MouseSource => ref Unsafe.AsRef<ImGuiMouseSource>(&NativePtr->MouseSource);
     }
 }

@@ -13,7 +13,7 @@ namespace ImGuiNET
         public sbyte DisplayOrder;
         public sbyte SortOrder;
         public byte SortDirection;
-        public byte IsEnabled;
+        public sbyte IsEnabled;
         public byte IsStretch;
     }
     public unsafe partial struct ImGuiTableColumnSettingsPtr
@@ -30,7 +30,7 @@ namespace ImGuiNET
         public ref sbyte DisplayOrder => ref Unsafe.AsRef<sbyte>(&NativePtr->DisplayOrder);
         public ref sbyte SortOrder => ref Unsafe.AsRef<sbyte>(&NativePtr->SortOrder);
         public ref byte SortDirection => ref Unsafe.AsRef<byte>(&NativePtr->SortDirection);
-        public ref byte IsEnabled => ref Unsafe.AsRef<byte>(&NativePtr->IsEnabled);
+        public ref sbyte IsEnabled => ref Unsafe.AsRef<sbyte>(&NativePtr->IsEnabled);
         public ref byte IsStretch => ref Unsafe.AsRef<byte>(&NativePtr->IsStretch);
         public void Destroy()
         {
