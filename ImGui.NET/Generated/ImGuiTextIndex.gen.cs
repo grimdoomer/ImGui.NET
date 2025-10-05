@@ -27,23 +27,23 @@ namespace ImGuiNET
             if (@base != null)
             {
                 @base_byteCount = Encoding.UTF8.GetByteCount(@base);
-                if (@base_byteCount > Util.StackAllocationSizeLimit)
+                if (@base_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_base = Util.Allocate(@base_byteCount + 1);
+                    native_base = NativeUtilities.AllocateNativeBuffer(@base_byteCount + 1);
                 }
                 else
                 {
                     byte* native_base_stackBytes = stackalloc byte[@base_byteCount + 1];
                     native_base = native_base_stackBytes;
                 }
-                int native_base_offset = Util.GetUtf8(@base, native_base, @base_byteCount);
+                int native_base_offset = NativeUtilities.GetUtf8(@base, native_base, @base_byteCount);
                 native_base[native_base_offset] = 0;
             }
             else { native_base = null; }
             ImGuiNative.ImGuiTextIndex_append((ImGuiTextIndex*)(NativePtr), native_base, old_size, new_size);
-            if (@base_byteCount > Util.StackAllocationSizeLimit)
+            if (@base_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_base);
+                NativeUtilities.FreeNativeBuffer(native_base);
             }
         }
         public void clear()
@@ -57,25 +57,25 @@ namespace ImGuiNET
             if (@base != null)
             {
                 @base_byteCount = Encoding.UTF8.GetByteCount(@base);
-                if (@base_byteCount > Util.StackAllocationSizeLimit)
+                if (@base_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_base = Util.Allocate(@base_byteCount + 1);
+                    native_base = NativeUtilities.AllocateNativeBuffer(@base_byteCount + 1);
                 }
                 else
                 {
                     byte* native_base_stackBytes = stackalloc byte[@base_byteCount + 1];
                     native_base = native_base_stackBytes;
                 }
-                int native_base_offset = Util.GetUtf8(@base, native_base, @base_byteCount);
+                int native_base_offset = NativeUtilities.GetUtf8(@base, native_base, @base_byteCount);
                 native_base[native_base_offset] = 0;
             }
             else { native_base = null; }
             byte* ret = ImGuiNative.ImGuiTextIndex_get_line_begin((ImGuiTextIndex*)(NativePtr), native_base, n);
-            if (@base_byteCount > Util.StackAllocationSizeLimit)
+            if (@base_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_base);
+                NativeUtilities.FreeNativeBuffer(native_base);
             }
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public string get_line_end(string @base, int n)
         {
@@ -84,25 +84,25 @@ namespace ImGuiNET
             if (@base != null)
             {
                 @base_byteCount = Encoding.UTF8.GetByteCount(@base);
-                if (@base_byteCount > Util.StackAllocationSizeLimit)
+                if (@base_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_base = Util.Allocate(@base_byteCount + 1);
+                    native_base = NativeUtilities.AllocateNativeBuffer(@base_byteCount + 1);
                 }
                 else
                 {
                     byte* native_base_stackBytes = stackalloc byte[@base_byteCount + 1];
                     native_base = native_base_stackBytes;
                 }
-                int native_base_offset = Util.GetUtf8(@base, native_base, @base_byteCount);
+                int native_base_offset = NativeUtilities.GetUtf8(@base, native_base, @base_byteCount);
                 native_base[native_base_offset] = 0;
             }
             else { native_base = null; }
             byte* ret = ImGuiNative.ImGuiTextIndex_get_line_end((ImGuiTextIndex*)(NativePtr), native_base, n);
-            if (@base_byteCount > Util.StackAllocationSizeLimit)
+            if (@base_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_base);
+                NativeUtilities.FreeNativeBuffer(native_base);
             }
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public int size()
         {

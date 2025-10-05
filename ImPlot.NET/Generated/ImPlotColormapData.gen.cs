@@ -50,16 +50,16 @@ namespace ImPlotNET
             if (name != null)
             {
                 name_byteCount = Encoding.UTF8.GetByteCount(name);
-                if (name_byteCount > Util.StackAllocationSizeLimit)
+                if (name_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_name = Util.Allocate(name_byteCount + 1);
+                    native_name = NativeUtilities.AllocateNativeBuffer(name_byteCount + 1);
                 }
                 else
                 {
                     byte* native_name_stackBytes = stackalloc byte[name_byteCount + 1];
                     native_name = native_name_stackBytes;
                 }
-                int native_name_offset = Util.GetUtf8(name, native_name, name_byteCount);
+                int native_name_offset = NativeUtilities.GetUtf8(name, native_name, name_byteCount);
                 native_name[native_name_offset] = 0;
             }
             else { native_name = null; }
@@ -67,9 +67,9 @@ namespace ImPlotNET
             fixed (uint* native_keys = &keys)
             {
                 int ret = ImPlotNative.ImPlotColormapData_Append((ImPlotColormapData*)(NativePtr), native_name, native_keys, count, native_qual);
-                if (name_byteCount > Util.StackAllocationSizeLimit)
+                if (name_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    Util.Free(native_name);
+                    NativeUtilities.FreeNativeBuffer(native_name);
                 }
                 return ret;
             }
@@ -85,23 +85,23 @@ namespace ImPlotNET
             if (name != null)
             {
                 name_byteCount = Encoding.UTF8.GetByteCount(name);
-                if (name_byteCount > Util.StackAllocationSizeLimit)
+                if (name_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_name = Util.Allocate(name_byteCount + 1);
+                    native_name = NativeUtilities.AllocateNativeBuffer(name_byteCount + 1);
                 }
                 else
                 {
                     byte* native_name_stackBytes = stackalloc byte[name_byteCount + 1];
                     native_name = native_name_stackBytes;
                 }
-                int native_name_offset = Util.GetUtf8(name, native_name, name_byteCount);
+                int native_name_offset = NativeUtilities.GetUtf8(name, native_name, name_byteCount);
                 native_name[native_name_offset] = 0;
             }
             else { native_name = null; }
             ImPlotColormap ret = ImPlotNative.ImPlotColormapData_GetIndex((ImPlotColormapData*)(NativePtr), native_name);
-            if (name_byteCount > Util.StackAllocationSizeLimit)
+            if (name_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_name);
+                NativeUtilities.FreeNativeBuffer(native_name);
             }
             return ret;
         }
@@ -123,7 +123,7 @@ namespace ImPlotNET
         public string GetName(ImPlotColormap cmap)
         {
             byte* ret = ImPlotNative.ImPlotColormapData_GetName((ImPlotColormapData*)(NativePtr), cmap);
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public uint* GetTable(ImPlotColormap cmap)
         {

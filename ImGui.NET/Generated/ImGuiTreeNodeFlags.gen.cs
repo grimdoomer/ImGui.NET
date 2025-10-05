@@ -25,5 +25,12 @@ namespace ImGuiNET
         DrawLinesNone = 262144,
         DrawLinesFull = 524288,
         DrawLinesToNodes = 1048576,
+        
+        // Private flags:
+        NoNavFocus = 134217728,
+        ClipLabelForTrailingButton = 268435456,
+        UpsideDownArrow = 536870912,
+        OpenOnMask = 192,
+        DrawLinesMask = 1835008,
     }
 }

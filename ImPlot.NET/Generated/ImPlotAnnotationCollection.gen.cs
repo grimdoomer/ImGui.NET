@@ -20,7 +20,7 @@ namespace ImPlotNET
         public static implicit operator ImPlotAnnotationCollectionPtr(ImPlotAnnotationCollection* nativePtr) => new ImPlotAnnotationCollectionPtr(nativePtr);
         public static implicit operator ImPlotAnnotationCollection* (ImPlotAnnotationCollectionPtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImPlotAnnotationCollectionPtr(IntPtr nativePtr) => new ImPlotAnnotationCollectionPtr(nativePtr);
-        public ImVector<ImPlotAnnotation> Annotations => new ImVector<ImPlotAnnotation>(NativePtr->Annotations);
+        public ImPtrVector<ImPlotAnnotationPtr> Annotations => new ImPtrVector<ImPlotAnnotationPtr>(NativePtr->Annotations, Unsafe.SizeOf<ImPlotAnnotation>());
         public ref ImGuiTextBuffer TextBuffer => ref Unsafe.AsRef<ImGuiTextBuffer>(&NativePtr->TextBuffer);
         public ref int Size => ref Unsafe.AsRef<int>(&NativePtr->Size);
         public void Append(Vector2 pos, Vector2 off, uint bg, uint fg, bool clamp, string fmt)
@@ -31,23 +31,23 @@ namespace ImPlotNET
             if (fmt != null)
             {
                 fmt_byteCount = Encoding.UTF8.GetByteCount(fmt);
-                if (fmt_byteCount > Util.StackAllocationSizeLimit)
+                if (fmt_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_fmt = Util.Allocate(fmt_byteCount + 1);
+                    native_fmt = NativeUtilities.AllocateNativeBuffer(fmt_byteCount + 1);
                 }
                 else
                 {
                     byte* native_fmt_stackBytes = stackalloc byte[fmt_byteCount + 1];
                     native_fmt = native_fmt_stackBytes;
                 }
-                int native_fmt_offset = Util.GetUtf8(fmt, native_fmt, fmt_byteCount);
+                int native_fmt_offset = NativeUtilities.GetUtf8(fmt, native_fmt, fmt_byteCount);
                 native_fmt[native_fmt_offset] = 0;
             }
             else { native_fmt = null; }
             ImPlotNative.ImPlotAnnotationCollection_Append((ImPlotAnnotationCollection*)(NativePtr), pos, off, bg, fg, native_clamp, native_fmt);
-            if (fmt_byteCount > Util.StackAllocationSizeLimit)
+            if (fmt_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_fmt);
+                NativeUtilities.FreeNativeBuffer(native_fmt);
             }
         }
         public void Destroy()
@@ -57,7 +57,7 @@ namespace ImPlotNET
         public string GetText(int idx)
         {
             byte* ret = ImPlotNative.ImPlotAnnotationCollection_GetText((ImPlotAnnotationCollection*)(NativePtr), idx);
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public void Reset()
         {

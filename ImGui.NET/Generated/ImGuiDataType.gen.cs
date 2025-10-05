@@ -15,5 +15,9 @@ namespace ImGuiNET
         Bool = 10,
         String = 11,
         COUNT = 12,
+        
+        // Private flags:
+        Pointer = 12,
+        ID = 13,
     }
 }

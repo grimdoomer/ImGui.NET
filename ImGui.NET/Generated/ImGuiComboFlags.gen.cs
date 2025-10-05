@@ -13,5 +13,8 @@ namespace ImGuiNET
         NoPreview = 64,
         WidthFitPreview = 128,
         HeightMask = 30,
+        
+        // Private flags:
+        CustomPreview = 1048576,
     }
 }

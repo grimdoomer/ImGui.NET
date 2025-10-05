@@ -24,5 +24,10 @@ namespace ImGuiNET
         DelayShort = 32768,
         DelayNormal = 65536,
         NoSharedDelay = 131072,
+        
+        // Private flags:
+        DelayMask = 245760,
+        AllowedMaskForIsWindowHovered = 12479,
+        AllowedMaskForIsItemHovered = 262048,
     }
 }

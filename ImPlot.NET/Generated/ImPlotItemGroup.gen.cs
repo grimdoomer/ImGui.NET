@@ -41,23 +41,23 @@ namespace ImPlotNET
             if (label_id != null)
             {
                 label_id_byteCount = Encoding.UTF8.GetByteCount(label_id);
-                if (label_id_byteCount > Util.StackAllocationSizeLimit)
+                if (label_id_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label_id = Util.Allocate(label_id_byteCount + 1);
+                    native_label_id = NativeUtilities.AllocateNativeBuffer(label_id_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_id_stackBytes = stackalloc byte[label_id_byteCount + 1];
                     native_label_id = native_label_id_stackBytes;
                 }
-                int native_label_id_offset = Util.GetUtf8(label_id, native_label_id, label_id_byteCount);
+                int native_label_id_offset = NativeUtilities.GetUtf8(label_id, native_label_id, label_id_byteCount);
                 native_label_id[native_label_id_offset] = 0;
             }
             else { native_label_id = null; }
             ImPlotItem* ret = ImPlotNative.ImPlotItemGroup_GetItem_Str((ImPlotItemGroup*)(NativePtr), native_label_id);
-            if (label_id_byteCount > Util.StackAllocationSizeLimit)
+            if (label_id_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_label_id);
+                NativeUtilities.FreeNativeBuffer(native_label_id);
             }
             return new ImPlotItemPtr(ret);
         }
@@ -78,23 +78,23 @@ namespace ImPlotNET
             if (label_id != null)
             {
                 label_id_byteCount = Encoding.UTF8.GetByteCount(label_id);
-                if (label_id_byteCount > Util.StackAllocationSizeLimit)
+                if (label_id_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label_id = Util.Allocate(label_id_byteCount + 1);
+                    native_label_id = NativeUtilities.AllocateNativeBuffer(label_id_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_id_stackBytes = stackalloc byte[label_id_byteCount + 1];
                     native_label_id = native_label_id_stackBytes;
                 }
-                int native_label_id_offset = Util.GetUtf8(label_id, native_label_id, label_id_byteCount);
+                int native_label_id_offset = NativeUtilities.GetUtf8(label_id, native_label_id, label_id_byteCount);
                 native_label_id[native_label_id_offset] = 0;
             }
             else { native_label_id = null; }
             uint ret = ImPlotNative.ImPlotItemGroup_GetItemID((ImPlotItemGroup*)(NativePtr), native_label_id);
-            if (label_id_byteCount > Util.StackAllocationSizeLimit)
+            if (label_id_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_label_id);
+                NativeUtilities.FreeNativeBuffer(native_label_id);
             }
             return ret;
         }
@@ -117,7 +117,7 @@ namespace ImPlotNET
         public string GetLegendLabel(int i)
         {
             byte* ret = ImPlotNative.ImPlotItemGroup_GetLegendLabel((ImPlotItemGroup*)(NativePtr), i);
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public ImPlotItemPtr GetOrAddItem(uint id)
         {

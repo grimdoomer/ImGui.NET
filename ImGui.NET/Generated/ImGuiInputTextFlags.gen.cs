@@ -29,5 +29,10 @@ namespace ImGuiNET
         CallbackResize = 4194304,
         CallbackEdit = 8388608,
         WordWrap = 16777216,
+        
+        // Private flags:
+        Multiline = 67108864,
+        MergedItem = 134217728,
+        LocalizeDecimalPoint = 268435456,
     }
 }

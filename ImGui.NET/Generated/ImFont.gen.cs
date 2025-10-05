@@ -55,7 +55,7 @@ namespace ImGuiNET
         public string GetDebugName()
         {
             byte* ret = ImGuiNative.ImFont_GetDebugName((ImFont*)(NativePtr));
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public ImFontBakedPtr GetFontBaked(float font_size)
         {

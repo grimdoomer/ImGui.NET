@@ -51,6 +51,9 @@
     <ClCompile Include="..\deps\cimplot\implot\implot_items.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cimgui.manual.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\deps\cimgui\cimgui.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cimgui.manual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

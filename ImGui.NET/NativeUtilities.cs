@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ImGuiNET
 {
-    internal static unsafe class Util
+    public static unsafe class NativeUtilities
     {
-        internal const int StackAllocationSizeLimit = 2048;
+        public const int StackAllocationSizeLimit = 2048;
 
         public static string StringFromPtr(byte* ptr)
         {
@@ -19,7 +19,7 @@ namespace ImGuiNET
             return Encoding.UTF8.GetString(ptr, characters);
         }
 
-        internal static bool AreStringsEqual(byte* a, int aLength, byte* b)
+        public static bool AreStringsEqual(byte* a, int aLength, byte* b)
         {
             for (int i = 0; i < aLength; i++)
             {
@@ -31,11 +31,18 @@ namespace ImGuiNET
             return true;
         }
 
-        internal static byte* Allocate(int byteCount) => (byte*)Marshal.AllocHGlobal(byteCount);
+        public static byte* AllocateNativeBuffer(int byteCount)
+        {
+            byte* pAlloc = (byte*)Marshal.AllocHGlobal(byteCount);
+            for (int i = 0; i < byteCount; i++)
+                pAlloc[i] = 0;
 
-        internal static void Free(byte* ptr) => Marshal.FreeHGlobal((IntPtr)ptr);
+            return pAlloc;
+        }
 
-        internal static int CalcSizeInUtf8(string s, int start, int length)
+        public static void FreeNativeBuffer(byte* ptr) => Marshal.FreeHGlobal((IntPtr)ptr);
+
+        public static int CalcSizeInUtf8(string s, int start, int length)
         {
             if (start < 0 || length < 0 || start + length > s.Length)
             {
@@ -48,7 +55,7 @@ namespace ImGuiNET
             }
         }
 
-        internal static int GetUtf8(string s, byte* utf8Bytes, int utf8ByteCount)
+        public static int GetUtf8(string s, byte* utf8Bytes, int utf8ByteCount)
         {
             fixed (char* utf16Ptr = s)
             {
@@ -56,7 +63,7 @@ namespace ImGuiNET
             }
         }
 
-        internal static int GetUtf8(string s, int start, int length, byte* utf8Bytes, int utf8ByteCount)
+        public static int GetUtf8(string s, int start, int length, byte* utf8Bytes, int utf8ByteCount)
         {
             if (start < 0 || length < 0 || start + length > s.Length)
             {
@@ -67,6 +74,24 @@ namespace ImGuiNET
             {
                 return Encoding.UTF8.GetBytes(utf16Ptr + start, length, utf8Bytes, utf8ByteCount);
             }
+        }
+
+        public static byte* GetNativeStringBuffer(string str)
+        {
+            // Allocate a pinned buffer to hold the string contents.
+            int length = Encoding.UTF8.GetByteCount(str) + 1;
+            byte* pNativeString = (byte*)Marshal.AllocHGlobal(length);
+
+            // Copy the managed string contents into the native buffer.
+            fixed (char* pManagedStr = str)
+            {
+                Encoding.UTF8.GetBytes(pManagedStr, str.Length, pNativeString, length);
+            }
+
+            // Null terminate the native string.
+            pNativeString[length - 1] = 0;
+
+            return pNativeString;
         }
     }
 }

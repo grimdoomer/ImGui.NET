@@ -13,5 +13,9 @@ namespace ImGuiNET
         NoSpeedTweaks = 2048,
         AlwaysClamp = 1536,
         InvalidMask = 1879048207,
+        
+        // Private flags:
+        Vertical = 1048576,
+        ReadOnly = 2097152,
     }
 }

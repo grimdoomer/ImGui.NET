@@ -148,6 +148,7 @@
     <ClCompile Include="..\deps\cimplot\implot\implot.cpp" />
     <ClCompile Include="..\deps\cimplot\implot\implot_demo.cpp" />
     <ClCompile Include="..\deps\cimplot\implot\implot_items.cpp" />
+    <ClCompile Include="cimgui.manual.cpp" />
     <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="..\deps\cimplot\cimplot.h" />
     <ClInclude Include="..\deps\cimplot\implot\implot.h" />
     <ClInclude Include="..\deps\cimplot\implot\implot_internal.h" />
+    <ClInclude Include="cimgui.manual.h" />
     <ClInclude Include="imconfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

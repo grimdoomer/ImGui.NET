@@ -70,6 +70,14 @@ namespace CodeGenerator
 
             foreach (EnumDefinition ed in defs.Enums)
             {
+                // Skip any "Private_" enum definitions that have a non-private counter part.
+                if (ed.FriendlyName.EndsWith("Private") == true)
+                {
+                    EnumDefinition mainDef = defs.Enums.FirstOrDefault(e => e.FriendlyName == ed.FriendlyName.Replace("Private", ""));
+                    if (mainDef != null)
+                        continue;
+                }
+
                 using (CSharpCodeWriter writer = new CSharpCodeWriter(Path.Combine(outputPath, ed.FriendlyName + ".gen.cs")))
                 {
                     writer.PushBlock($"namespace {projectNamespace}");
@@ -84,6 +92,22 @@ namespace CodeGenerator
                         string sanitizedValue = ed.SanitizeNames(member.Value);
                         writer.WriteLine($"{sanitizedName} = {sanitizedValue},");
                     }
+
+                    // Check for a "Private_" enum definition.
+                    EnumDefinition privateDef = defs.Enums.FirstOrDefault(e => e.FriendlyName == ed.FriendlyName + "Private");
+                    if (privateDef != null)
+                    {
+                        writer.WriteLine("");
+                        writer.WriteLine("// Private flags:");
+
+                        foreach (EnumMember member in privateDef.Members)
+                        {
+                            string sanitizedName = privateDef.SanitizeNames(member.Name).Replace($"{ed.FriendlyName}_", "");
+                            string sanitizedValue = privateDef.SanitizeNames(member.Value);
+                            writer.WriteLine($"{sanitizedName} = {sanitizedValue},");
+                        }
+                    }
+
                     writer.PopBlock();
                     writer.PopBlock();
                 }
@@ -171,7 +195,7 @@ namespace CodeGenerator
 
                             // TODO: need to check if type is a class/struct and wrap in *Ptr variant.
 
-                            if (vectorElementType != "ImPlotColormap" && GetWrappedType(vectorElementType + " * ", out string wrappedElementType) == true)
+                            if (vectorElementType != "ImPlotColormap" && GetWrappedType(vectorElementType + "*", out string wrappedElementType) == true)
                             {
                                 writer.WriteLine($"public ImPtrVector<{wrappedElementType}> {field.Name} => new ImPtrVector<{wrappedElementType}>(NativePtr->{field.Name}, Unsafe.SizeOf<{vectorElementType}>());");
                             }
@@ -490,6 +514,11 @@ namespace CodeGenerator
                 return;
             }
 
+            if (overload.FriendlyName == "ImFontAtlasBakedSetFontGlyphBitmap")
+            {
+
+            }
+
             Debug.Assert(!overload.IsMemberFunction || selfName != null);
 
             string nativeRet = GetTypeString(overload.ReturnType, false);
@@ -558,16 +587,16 @@ namespace CodeGenerator
                             preCallLines.Add("{");
                         }
                         preCallLines.Add($"    {correctedIdentifier}_byteCount = Encoding.UTF8.GetByteCount({textToEncode});");
-                        preCallLines.Add($"    if ({correctedIdentifier}_byteCount > Util.StackAllocationSizeLimit)");
+                        preCallLines.Add($"    if ({correctedIdentifier}_byteCount > NativeUtilities.StackAllocationSizeLimit)");
                         preCallLines.Add($"    {{");
-                        preCallLines.Add($"        {nativeArgName} = Util.Allocate({correctedIdentifier}_byteCount + 1);");
+                        preCallLines.Add($"        {nativeArgName} = NativeUtilities.AllocateNativeBuffer({correctedIdentifier}_byteCount + 1);");
                         preCallLines.Add($"    }}");
                         preCallLines.Add($"    else");
                         preCallLines.Add($"    {{");
                         preCallLines.Add($"        byte* {nativeArgName}_stackBytes = stackalloc byte[{correctedIdentifier}_byteCount + 1];");
                         preCallLines.Add($"        {nativeArgName} = {nativeArgName}_stackBytes;");
                         preCallLines.Add($"    }}");
-                        preCallLines.Add($"    int {nativeArgName}_offset = Util.GetUtf8({textToEncode}, {nativeArgName}, {correctedIdentifier}_byteCount);");
+                        preCallLines.Add($"    int {nativeArgName}_offset = NativeUtilities.GetUtf8({textToEncode}, {nativeArgName}, {correctedIdentifier}_byteCount);");
                         preCallLines.Add($"    {nativeArgName}[{nativeArgName}_offset] = 0;");
 
                         if (!hasDefault)
@@ -576,9 +605,9 @@ namespace CodeGenerator
                             preCallLines.Add($"else {{ {nativeArgName} = null; }}");
                         }
 
-                        postCallLines.Add($"if ({correctedIdentifier}_byteCount > Util.StackAllocationSizeLimit)");
+                        postCallLines.Add($"if ({correctedIdentifier}_byteCount > NativeUtilities.StackAllocationSizeLimit)");
                         postCallLines.Add($"{{");
-                        postCallLines.Add($"    Util.Free({nativeArgName});");
+                        postCallLines.Add($"    NativeUtilities.FreeNativeBuffer({nativeArgName});");
                         postCallLines.Add($"}}");
                     }
                 }
@@ -673,6 +702,7 @@ namespace CodeGenerator
                 else if ((tr.Type.EndsWith("*") || tr.Type.Contains("[") || tr.Type.EndsWith("&")) && tr.Type != "void*" && tr.Type != "ImGuiContext*" && tr.Type != "ImPlotContext*"&& tr.Type != "EditorContext*")
                 {
                     string nonPtrType;
+                    bool useArray = false;
                     if (tr.Type.Contains("["))
                     {
                         string wellKnown = TypeInfo.WellKnownTypes[tr.Type];
@@ -681,11 +711,18 @@ namespace CodeGenerator
                     else
                     {
                         nonPtrType = GetTypeString(tr.Type.Substring(0, tr.Type.Length - 1), false);
+                        if (nonPtrType == "byte")
+                            useArray = true;
                     }
                     string nativeArgName = "native_" + tr.Name;
                     bool isOutParam = tr.Name.Contains("out_") || tr.Name == "out";
                     string direction = isOutParam ? "out" : "ref";
-                    marshalledParameters[i] = new MarshalledParameter($"{direction} {nonPtrType}", true, nativeArgName, false);
+
+                    if (useArray == true)
+                        marshalledParameters[i] = new MarshalledParameter($"{direction} {nonPtrType}[]", true, nativeArgName, false);
+                    else
+                        marshalledParameters[i] = new MarshalledParameter($"{direction} {nonPtrType}", true, nativeArgName, false);
+
                     marshalledParameters[i].PinTarget = CorrectIdentifier(tr.Name);
                 }
                 else
@@ -767,7 +804,7 @@ namespace CodeGenerator
                 }
                 else if (overload.ReturnType == "char*")
                 {
-                    writer.WriteLine("return Util.StringFromPtr(ret);");
+                    writer.WriteLine("return NativeUtilities.StringFromPtr(ret);");
                 }
                 else if (overload.ReturnType == "ImWchar*")
                 {

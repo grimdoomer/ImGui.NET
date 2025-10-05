@@ -88,7 +88,7 @@ namespace CodeGenerator
             "ImVec2",
             "ImVec4",
             "ImGuiStoragePair",
-            "ImGuiPlatformIO",
+            //"ImGuiPlatformIO",
             "ImFontGlyph"
         };
 

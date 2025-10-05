@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="build\net40" />
+    <Folder Include="Generated\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="build\net40\ImPlot.NET.targets" />

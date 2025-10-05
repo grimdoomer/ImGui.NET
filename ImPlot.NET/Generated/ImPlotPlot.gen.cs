@@ -95,12 +95,12 @@ namespace ImPlotNET
         public string GetAxisLabel(ImPlotAxis axis)
         {
             byte* ret = ImPlotNative.ImPlotPlot_GetAxisLabel((ImPlotPlot*)(NativePtr), axis);
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public string GetTitle()
         {
             byte* ret = ImPlotNative.ImPlotPlot_GetTitle((ImPlotPlot*)(NativePtr));
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public bool HasTitle()
         {
@@ -120,23 +120,23 @@ namespace ImPlotNET
             if (label != null)
             {
                 label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label = Util.Allocate(label_byteCount + 1);
+                    native_label = NativeUtilities.AllocateNativeBuffer(label_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
                     native_label = native_label_stackBytes;
                 }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                int native_label_offset = NativeUtilities.GetUtf8(label, native_label, label_byteCount);
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
             ImPlotNative.ImPlotPlot_SetAxisLabel((ImPlotPlot*)(NativePtr), native_axis, native_label);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
+            if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_label);
+                NativeUtilities.FreeNativeBuffer(native_label);
             }
         }
         public void SetTitle(string title)
@@ -146,23 +146,23 @@ namespace ImPlotNET
             if (title != null)
             {
                 title_byteCount = Encoding.UTF8.GetByteCount(title);
-                if (title_byteCount > Util.StackAllocationSizeLimit)
+                if (title_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_title = Util.Allocate(title_byteCount + 1);
+                    native_title = NativeUtilities.AllocateNativeBuffer(title_byteCount + 1);
                 }
                 else
                 {
                     byte* native_title_stackBytes = stackalloc byte[title_byteCount + 1];
                     native_title = native_title_stackBytes;
                 }
-                int native_title_offset = Util.GetUtf8(title, native_title, title_byteCount);
+                int native_title_offset = NativeUtilities.GetUtf8(title, native_title, title_byteCount);
                 native_title[native_title_offset] = 0;
             }
             else { native_title = null; }
             ImPlotNative.ImPlotPlot_SetTitle((ImPlotPlot*)(NativePtr), native_title);
-            if (title_byteCount > Util.StackAllocationSizeLimit)
+            if (title_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_title);
+                NativeUtilities.FreeNativeBuffer(native_title);
             }
         }
         public ImPlotAxisPtr XAxis(int i)

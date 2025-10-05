@@ -22,7 +22,7 @@ namespace ImPlotNET
         public static implicit operator ImPlotTickerPtr(ImPlotTicker* nativePtr) => new ImPlotTickerPtr(nativePtr);
         public static implicit operator ImPlotTicker* (ImPlotTickerPtr wrappedPtr) => wrappedPtr.NativePtr;
         public static implicit operator ImPlotTickerPtr(IntPtr nativePtr) => new ImPlotTickerPtr(nativePtr);
-        public ImVector<ImPlotTick> Ticks => new ImVector<ImPlotTick>(NativePtr->Ticks);
+        public ImPtrVector<ImPlotTickPtr> Ticks => new ImPtrVector<ImPlotTickPtr>(NativePtr->Ticks, Unsafe.SizeOf<ImPlotTick>());
         public ref ImGuiTextBuffer TextBuffer => ref Unsafe.AsRef<ImGuiTextBuffer>(&NativePtr->TextBuffer);
         public ref Vector2 MaxSize => ref Unsafe.AsRef<Vector2>(&NativePtr->MaxSize);
         public ref Vector2 LateSize => ref Unsafe.AsRef<Vector2>(&NativePtr->LateSize);
@@ -36,23 +36,23 @@ namespace ImPlotNET
             if (label != null)
             {
                 label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label = Util.Allocate(label_byteCount + 1);
+                    native_label = NativeUtilities.AllocateNativeBuffer(label_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
                     native_label = native_label_stackBytes;
                 }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                int native_label_offset = NativeUtilities.GetUtf8(label, native_label, label_byteCount);
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
             ImPlotTick* ret = ImPlotNative.ImPlotTicker_AddTick_doubleStr((ImPlotTicker*)(NativePtr), value, native_major, level, native_show_label, native_label);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
+            if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_label);
+                NativeUtilities.FreeNativeBuffer(native_label);
             }
             return new ImPlotTickPtr(ret);
         }
@@ -76,12 +76,12 @@ namespace ImPlotNET
         public string GetText(int idx)
         {
             byte* ret = ImPlotNative.ImPlotTicker_GetText_Int((ImPlotTicker*)(NativePtr), idx);
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public string GetText(ImPlotTick tick)
         {
             byte* ret = ImPlotNative.ImPlotTicker_GetText_PlotTick((ImPlotTicker*)(NativePtr), tick);
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
         public void OverrideSizeLate(Vector2 size)
         {

@@ -58,8 +58,8 @@ namespace ImPlotNET
         public ref ImPlotAnnotationCollection Annotations => ref Unsafe.AsRef<ImPlotAnnotationCollection>(&NativePtr->Annotations);
         public ref ImPlotTagCollection Tags => ref Unsafe.AsRef<ImPlotTagCollection>(&NativePtr->Tags);
         public ref ImPlotStyle Style => ref Unsafe.AsRef<ImPlotStyle>(&NativePtr->Style);
-        public ImVector<ImGuiColorMod> ColorModifiers => new ImVector<ImGuiColorMod>(NativePtr->ColorModifiers);
-        public ImVector<ImGuiStyleMod> StyleModifiers => new ImVector<ImGuiStyleMod>(NativePtr->StyleModifiers);
+        public ImPtrVector<ImGuiColorModPtr> ColorModifiers => new ImPtrVector<ImGuiColorModPtr>(NativePtr->ColorModifiers, Unsafe.SizeOf<ImGuiColorMod>());
+        public ImPtrVector<ImGuiStyleModPtr> StyleModifiers => new ImPtrVector<ImGuiStyleModPtr>(NativePtr->StyleModifiers, Unsafe.SizeOf<ImGuiStyleMod>());
         public ref ImPlotColormapData ColormapData => ref Unsafe.AsRef<ImPlotColormapData>(&NativePtr->ColormapData);
         public ImVector<ImPlotColormap> ColormapModifiers => new ImVector<ImPlotColormap>(NativePtr->ColormapModifiers);
         public ref Time Tm => ref Unsafe.AsRef<Time>(&NativePtr->Tm);

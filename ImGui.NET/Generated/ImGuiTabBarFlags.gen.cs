@@ -16,5 +16,10 @@ namespace ImGuiNET
         FittingPolicyScroll = 512,
         FittingPolicyMask = 896,
         FittingPolicyDefault = 128,
+        
+        // Private flags:
+        DockNode = 1048576,
+        IsFocused = 2097152,
+        SaveSettings = 4194304,
     }
 }

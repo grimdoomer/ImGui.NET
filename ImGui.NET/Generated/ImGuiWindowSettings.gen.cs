@@ -47,7 +47,7 @@ namespace ImGuiNET
         public string GetName()
         {
             byte* ret = ImGuiNative.ImGuiWindowSettings_GetName((ImGuiWindowSettings*)(NativePtr));
-            return Util.StringFromPtr(ret);
+            return NativeUtilities.StringFromPtr(ret);
         }
     }
 }

@@ -47,16 +47,16 @@ namespace ImGuiNET
         {
             int utf8LabelByteCount = Encoding.UTF8.GetByteCount(label);
             byte* utf8LabelBytes;
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                utf8LabelBytes = Util.Allocate(utf8LabelByteCount + 1);
+                utf8LabelBytes = NativeUtilities.AllocateNativeBuffer(utf8LabelByteCount + 1);
             }
             else
             {
                 byte* stackPtr = stackalloc byte[utf8LabelByteCount + 1];
                 utf8LabelBytes = stackPtr;
             }
-            Util.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
+            NativeUtilities.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
 
             bool ret;
             fixed (byte* bufPtr = buf)
@@ -64,9 +64,9 @@ namespace ImGuiNET
                 ret = ImGuiNative.igInputText(utf8LabelBytes, bufPtr, buf_size, flags, callback, user_data.ToPointer()) != 0;
             }
 
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(utf8LabelBytes);
+                NativeUtilities.FreeNativeBuffer(utf8LabelBytes);
             }
 
             return ret;
@@ -100,26 +100,26 @@ namespace ImGuiNET
         {
             int utf8LabelByteCount = Encoding.UTF8.GetByteCount(label);
             byte* utf8LabelBytes;
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                utf8LabelBytes = Util.Allocate(utf8LabelByteCount + 1);
+                utf8LabelBytes = NativeUtilities.AllocateNativeBuffer(utf8LabelByteCount + 1);
             }
             else
             {
                 byte* stackPtr = stackalloc byte[utf8LabelByteCount + 1];
                 utf8LabelBytes = stackPtr;
             }
-            Util.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
+            NativeUtilities.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
 
             int utf8InputByteCount = Encoding.UTF8.GetByteCount(input);
             int inputBufSize = Math.Max((int)maxLength + 1, utf8InputByteCount + 1);
 
             byte* utf8InputBytes;
             byte* originalUtf8InputBytes;
-            if (inputBufSize > Util.StackAllocationSizeLimit)
+            if (inputBufSize > NativeUtilities.StackAllocationSizeLimit)
             {
-                utf8InputBytes = Util.Allocate(inputBufSize);
-                originalUtf8InputBytes = Util.Allocate(inputBufSize);
+                utf8InputBytes = NativeUtilities.AllocateNativeBuffer(inputBufSize);
+                originalUtf8InputBytes = NativeUtilities.AllocateNativeBuffer(inputBufSize);
             }
             else
             {
@@ -128,7 +128,7 @@ namespace ImGuiNET
                 byte* originalInputStackBytes = stackalloc byte[inputBufSize];
                 originalUtf8InputBytes = originalInputStackBytes;
             }
-            Util.GetUtf8(input, utf8InputBytes, inputBufSize);
+            NativeUtilities.GetUtf8(input, utf8InputBytes, inputBufSize);
             uint clearBytesCount = (uint)(inputBufSize - utf8InputByteCount);
             Unsafe.InitBlockUnaligned(utf8InputBytes + utf8InputByteCount, 0, clearBytesCount);
             Unsafe.CopyBlock(originalUtf8InputBytes, utf8InputBytes, (uint)inputBufSize);
@@ -140,19 +140,19 @@ namespace ImGuiNET
                 flags,
                 callback,
                 user_data.ToPointer());
-            if (!Util.AreStringsEqual(originalUtf8InputBytes, inputBufSize, utf8InputBytes))
+            if (!NativeUtilities.AreStringsEqual(originalUtf8InputBytes, inputBufSize, utf8InputBytes))
             {
-                input = Util.StringFromPtr(utf8InputBytes);
+                input = NativeUtilities.StringFromPtr(utf8InputBytes);
             }
 
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(utf8LabelBytes);
+                NativeUtilities.FreeNativeBuffer(utf8LabelBytes);
             }
-            if (inputBufSize > Util.StackAllocationSizeLimit)
+            if (inputBufSize > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(utf8InputBytes);
-                Util.Free(originalUtf8InputBytes);
+                NativeUtilities.FreeNativeBuffer(utf8InputBytes);
+                NativeUtilities.FreeNativeBuffer(originalUtf8InputBytes);
             }
 
             return result != 0;
@@ -195,22 +195,22 @@ namespace ImGuiNET
         {
             int utf8LabelByteCount = Encoding.UTF8.GetByteCount(label);
             byte* utf8LabelBytes;
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                utf8LabelBytes = Util.Allocate(utf8LabelByteCount + 1);
+                utf8LabelBytes = NativeUtilities.AllocateNativeBuffer(utf8LabelByteCount + 1);
             }
             else
             {
                 byte* stackPtr = stackalloc byte[utf8LabelByteCount + 1];
                 utf8LabelBytes = stackPtr;
             }
-            Util.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
+            NativeUtilities.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
 
             bool ret = ImGuiNative.igInputText(utf8LabelBytes, (byte*)buf.ToPointer(), buf_size, flags, callback, user_data.ToPointer()) != 0;
 
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(utf8LabelBytes);
+                NativeUtilities.FreeNativeBuffer(utf8LabelBytes);
             }
 
             return ret;
@@ -252,26 +252,26 @@ namespace ImGuiNET
         {
             int utf8LabelByteCount = Encoding.UTF8.GetByteCount(label);
             byte* utf8LabelBytes;
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                utf8LabelBytes = Util.Allocate(utf8LabelByteCount + 1);
+                utf8LabelBytes = NativeUtilities.AllocateNativeBuffer(utf8LabelByteCount + 1);
             }
             else
             {
                 byte* stackPtr = stackalloc byte[utf8LabelByteCount + 1];
                 utf8LabelBytes = stackPtr;
             }
-            Util.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
+            NativeUtilities.GetUtf8(label, utf8LabelBytes, utf8LabelByteCount);
 
             int utf8InputByteCount = Encoding.UTF8.GetByteCount(input);
             int inputBufSize = Math.Max((int)maxLength + 1, utf8InputByteCount + 1);
 
             byte* utf8InputBytes;
             byte* originalUtf8InputBytes;
-            if (inputBufSize > Util.StackAllocationSizeLimit)
+            if (inputBufSize > NativeUtilities.StackAllocationSizeLimit)
             {
-                utf8InputBytes = Util.Allocate(inputBufSize);
-                originalUtf8InputBytes = Util.Allocate(inputBufSize);
+                utf8InputBytes = NativeUtilities.AllocateNativeBuffer(inputBufSize);
+                originalUtf8InputBytes = NativeUtilities.AllocateNativeBuffer(inputBufSize);
             }
             else
             {
@@ -280,7 +280,7 @@ namespace ImGuiNET
                 byte* originalInputStackBytes = stackalloc byte[inputBufSize];
                 originalUtf8InputBytes = originalInputStackBytes;
             }
-            Util.GetUtf8(input, utf8InputBytes, inputBufSize);
+            NativeUtilities.GetUtf8(input, utf8InputBytes, inputBufSize);
             uint clearBytesCount = (uint)(inputBufSize - utf8InputByteCount);
             Unsafe.InitBlockUnaligned(utf8InputBytes + utf8InputByteCount, 0, clearBytesCount);
             Unsafe.CopyBlock(originalUtf8InputBytes, utf8InputBytes, (uint)inputBufSize);
@@ -293,19 +293,19 @@ namespace ImGuiNET
                 flags,
                 callback,
                 user_data.ToPointer());
-            if (!Util.AreStringsEqual(originalUtf8InputBytes, inputBufSize, utf8InputBytes))
+            if (!NativeUtilities.AreStringsEqual(originalUtf8InputBytes, inputBufSize, utf8InputBytes))
             {
-                input = Util.StringFromPtr(utf8InputBytes);
+                input = NativeUtilities.StringFromPtr(utf8InputBytes);
             }
 
-            if (utf8LabelByteCount > Util.StackAllocationSizeLimit)
+            if (utf8LabelByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(utf8LabelBytes);
+                NativeUtilities.FreeNativeBuffer(utf8LabelBytes);
             }
-            if (inputBufSize > Util.StackAllocationSizeLimit)
+            if (inputBufSize > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(utf8InputBytes);
-                Util.Free(originalUtf8InputBytes);
+                NativeUtilities.FreeNativeBuffer(utf8InputBytes);
+                NativeUtilities.FreeNativeBuffer(originalUtf8InputBytes);
             }
 
             return result != 0;
@@ -510,23 +510,23 @@ namespace ImGuiNET
         {
             int utf8NameByteCount = Encoding.UTF8.GetByteCount(name);
             byte* utf8NameBytes;
-            if (utf8NameByteCount > Util.StackAllocationSizeLimit)
+            if (utf8NameByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                utf8NameBytes = Util.Allocate(utf8NameByteCount + 1);
+                utf8NameBytes = NativeUtilities.AllocateNativeBuffer(utf8NameByteCount + 1);
             }
             else
             {
                 byte* stackPtr = stackalloc byte[utf8NameByteCount + 1];
                 utf8NameBytes = stackPtr;
             }
-            Util.GetUtf8(name, utf8NameBytes, utf8NameByteCount);
+            NativeUtilities.GetUtf8(name, utf8NameBytes, utf8NameByteCount);
 
             byte* p_open = null;
             byte ret = ImGuiNative.igBegin(utf8NameBytes, p_open, flags);
 
-            if (utf8NameByteCount > Util.StackAllocationSizeLimit)
+            if (utf8NameByteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(utf8NameBytes);
+                NativeUtilities.FreeNativeBuffer(utf8NameBytes);
             }
 
             return ret != 0;
@@ -786,16 +786,16 @@ namespace ImGuiNET
             if (label != null)
             {
                 label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label = Util.Allocate(label_byteCount + 1);
+                    native_label = NativeUtilities.AllocateNativeBuffer(label_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
                     native_label = native_label_stackBytes;
                 }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                int native_label_offset = NativeUtilities.GetUtf8(label, native_label, label_byteCount);
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
@@ -805,27 +805,27 @@ namespace ImGuiNET
             if (format != null)
             {
                 format_byteCount = Encoding.UTF8.GetByteCount(format);
-                if (format_byteCount > Util.StackAllocationSizeLimit)
+                if (format_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_format = Util.Allocate(format_byteCount + 1);
+                    native_format = NativeUtilities.AllocateNativeBuffer(format_byteCount + 1);
                 }
                 else
                 {
                     byte* native_format_stackBytes = stackalloc byte[format_byteCount + 1];
                     native_format = native_format_stackBytes;
                 }
-                int native_format_offset = Util.GetUtf8(format, native_format, format_byteCount);
+                int native_format_offset = NativeUtilities.GetUtf8(format, native_format, format_byteCount);
                 native_format[native_format_offset] = 0;
             }
             else { native_format = null; }
             byte ret = ImGuiNative.igInputScalar(native_label, data_type, p_data, p_step, p_step_fast, native_format, flags);
-            if (label_byteCount > Util.StackAllocationSizeLimit)
+            if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_label);
+                NativeUtilities.FreeNativeBuffer(native_label);
             }
-            if (format_byteCount > Util.StackAllocationSizeLimit)
+            if (format_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_format);
+                NativeUtilities.FreeNativeBuffer(native_format);
             }
             return ret != 0;
         }
@@ -841,16 +841,16 @@ namespace ImGuiNET
             if (label != null)
             {
                 label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label = Util.Allocate(label_byteCount + 1);
+                    native_label = NativeUtilities.AllocateNativeBuffer(label_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
                     native_label = native_label_stackBytes;
                 }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                int native_label_offset = NativeUtilities.GetUtf8(label, native_label, label_byteCount);
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
@@ -858,9 +858,9 @@ namespace ImGuiNET
             {
                 int* intp = (int*)native_v;
                 byte ret = ImGuiNative.igInputInt2(native_label, intp, flags);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    Util.Free(native_label);
+                    NativeUtilities.FreeNativeBuffer(native_label);
                 }
                 return ret != 0;
             }
@@ -881,16 +881,16 @@ namespace ImGuiNET
             if (label != null)
             {
                 label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label = Util.Allocate(label_byteCount + 1);
+                    native_label = NativeUtilities.AllocateNativeBuffer(label_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
                     native_label = native_label_stackBytes;
                 }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                int native_label_offset = NativeUtilities.GetUtf8(label, native_label, label_byteCount);
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
@@ -898,9 +898,9 @@ namespace ImGuiNET
             {
                 int* intp = (int*)native_v;
                 byte ret = ImGuiNative.igInputInt3(native_label, intp, flags);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    Util.Free(native_label);
+                    NativeUtilities.FreeNativeBuffer(native_label);
                 }
                 return ret != 0;
             }
@@ -921,16 +921,16 @@ namespace ImGuiNET
             if (label != null)
             {
                 label_byteCount = Encoding.UTF8.GetByteCount(label);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_label = Util.Allocate(label_byteCount + 1);
+                    native_label = NativeUtilities.AllocateNativeBuffer(label_byteCount + 1);
                 }
                 else
                 {
                     byte* native_label_stackBytes = stackalloc byte[label_byteCount + 1];
                     native_label = native_label_stackBytes;
                 }
-                int native_label_offset = Util.GetUtf8(label, native_label, label_byteCount);
+                int native_label_offset = NativeUtilities.GetUtf8(label, native_label, label_byteCount);
                 native_label[native_label_offset] = 0;
             }
             else { native_label = null; }
@@ -938,9 +938,9 @@ namespace ImGuiNET
             {
                 int* intp = (int*)native_v;
                 byte ret = ImGuiNative.igInputInt4(native_label, intp, flags);
-                if (label_byteCount > Util.StackAllocationSizeLimit)
+                if (label_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    Util.Free(native_label);
+                    NativeUtilities.FreeNativeBuffer(native_label);
                 }
                 return ret != 0;
             }

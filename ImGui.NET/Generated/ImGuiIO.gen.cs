@@ -416,23 +416,23 @@ namespace ImGuiNET
             if (str != null)
             {
                 str_byteCount = Encoding.UTF8.GetByteCount(str);
-                if (str_byteCount > Util.StackAllocationSizeLimit)
+                if (str_byteCount > NativeUtilities.StackAllocationSizeLimit)
                 {
-                    native_str = Util.Allocate(str_byteCount + 1);
+                    native_str = NativeUtilities.AllocateNativeBuffer(str_byteCount + 1);
                 }
                 else
                 {
                     byte* native_str_stackBytes = stackalloc byte[str_byteCount + 1];
                     native_str = native_str_stackBytes;
                 }
-                int native_str_offset = Util.GetUtf8(str, native_str, str_byteCount);
+                int native_str_offset = NativeUtilities.GetUtf8(str, native_str, str_byteCount);
                 native_str[native_str_offset] = 0;
             }
             else { native_str = null; }
             ImGuiNative.ImGuiIO_AddInputCharactersUTF8((ImGuiIO*)(NativePtr), native_str);
-            if (str_byteCount > Util.StackAllocationSizeLimit)
+            if (str_byteCount > NativeUtilities.StackAllocationSizeLimit)
             {
-                Util.Free(native_str);
+                NativeUtilities.FreeNativeBuffer(native_str);
             }
         }
         public void AddInputCharacterUTF16(ushort c)

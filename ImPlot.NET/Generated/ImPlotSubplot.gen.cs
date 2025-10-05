@@ -46,12 +46,12 @@ namespace ImPlotNET
         public ref ImRect FrameRect => ref Unsafe.AsRef<ImRect>(&NativePtr->FrameRect);
         public ref ImRect GridRect => ref Unsafe.AsRef<ImRect>(&NativePtr->GridRect);
         public ref Vector2 CellSize => ref Unsafe.AsRef<Vector2>(&NativePtr->CellSize);
-        public ImVector<ImPlotAlignmentData> RowAlignmentData => new ImVector<ImPlotAlignmentData>(NativePtr->RowAlignmentData);
-        public ImVector<ImPlotAlignmentData> ColAlignmentData => new ImVector<ImPlotAlignmentData>(NativePtr->ColAlignmentData);
+        public ImPtrVector<ImPlotAlignmentDataPtr> RowAlignmentData => new ImPtrVector<ImPlotAlignmentDataPtr>(NativePtr->RowAlignmentData, Unsafe.SizeOf<ImPlotAlignmentData>());
+        public ImPtrVector<ImPlotAlignmentDataPtr> ColAlignmentData => new ImPtrVector<ImPlotAlignmentDataPtr>(NativePtr->ColAlignmentData, Unsafe.SizeOf<ImPlotAlignmentData>());
         public ImVector<float> RowRatios => new ImVector<float>(NativePtr->RowRatios);
         public ImVector<float> ColRatios => new ImVector<float>(NativePtr->ColRatios);
-        public ImVector<ImPlotRange> RowLinkData => new ImVector<ImPlotRange>(NativePtr->RowLinkData);
-        public ImVector<ImPlotRange> ColLinkData => new ImVector<ImPlotRange>(NativePtr->ColLinkData);
+        public ImPtrVector<ImPlotRangePtr> RowLinkData => new ImPtrVector<ImPlotRangePtr>(NativePtr->RowLinkData, Unsafe.SizeOf<ImPlotRange>());
+        public ImPtrVector<ImPlotRangePtr> ColLinkData => new ImPtrVector<ImPlotRangePtr>(NativePtr->ColLinkData, Unsafe.SizeOf<ImPlotRange>());
         public RangeAccessor<float> TempSizes => new RangeAccessor<float>(NativePtr->TempSizes, 2);
         public ref bool FrameHovered => ref Unsafe.AsRef<bool>(&NativePtr->FrameHovered);
         public ref bool HasTitle => ref Unsafe.AsRef<bool>(&NativePtr->HasTitle);

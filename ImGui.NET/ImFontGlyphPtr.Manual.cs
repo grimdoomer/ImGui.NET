@@ -12,7 +12,7 @@ namespace ImGuiNET
 
         //public uint Colored;
         //public uint Visible;
-        public uint Codepoint;
+        public uint CodepointPacked;
         public float AdvanceX;
         public float X0;
         public float Y0;
@@ -22,6 +22,7 @@ namespace ImGuiNET
         public float V0;
         public float U1;
         public float V1;
+        public int PackId;
     }
     public unsafe partial struct ImFontGlyphPtr
     {
@@ -36,14 +37,14 @@ namespace ImGuiNET
         {
             get
             {
-                return (Unsafe.AsRef<uint>(&NativePtr->Codepoint) & 1) != 0;
+                return (Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) & 1) != 0;
             }
             set
             {
                 if (value == true)
-                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) |= 1;
+                    Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) |= 1;
                 else
-                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) &= ~(uint)1;
+                    Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) &= ~(uint)1;
             }
         }
 
@@ -51,18 +52,41 @@ namespace ImGuiNET
         {
             get
             {
-                return (Unsafe.AsRef<uint>(&NativePtr->Codepoint) & 2) != 0;
+                return (Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) & 2) != 0;
             }
             set
             {
                 if (value == true)
-                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) |= 2;
+                    Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) |= 2;
                 else
-                    Unsafe.AsRef<uint>(&NativePtr->Codepoint) &= ~(uint)2;
+                    Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) &= ~(uint)2;
             }
         }
 
-        public ref uint Codepoint => ref Unsafe.AsRef<uint>(&NativePtr->Codepoint);
+        public uint SourceIdx
+        {
+            get
+            {
+                return (Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) >> 2) & 0xF;
+            }
+            set
+            {
+                Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) = (uint)((Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) & ~0x3C) | ((value & 0xF) << 2));
+            }
+        }
+
+        public uint Codepoint
+        {
+            get
+            {
+                return Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) >> 6;
+            }
+            set
+            {
+                Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) = (uint)((Unsafe.AsRef<uint>(&NativePtr->CodepointPacked) & 0x3F) | (value << 6));
+            }
+        }
+
         public ref float AdvanceX => ref Unsafe.AsRef<float>(&NativePtr->AdvanceX);
         public ref float X0 => ref Unsafe.AsRef<float>(&NativePtr->X0);
         public ref float Y0 => ref Unsafe.AsRef<float>(&NativePtr->Y0);
@@ -72,5 +96,6 @@ namespace ImGuiNET
         public ref float V0 => ref Unsafe.AsRef<float>(&NativePtr->V0);
         public ref float U1 => ref Unsafe.AsRef<float>(&NativePtr->U1);
         public ref float V1 => ref Unsafe.AsRef<float>(&NativePtr->V1);
+        public ref int PackId => ref Unsafe.AsRef<int>(&NativePtr->PackId);
     }
 }
