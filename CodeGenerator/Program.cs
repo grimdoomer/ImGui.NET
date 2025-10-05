@@ -53,14 +53,14 @@ namespace CodeGenerator
                 _ => throw new NotImplementedException($"Library \"{libraryName}\" is not supported.")
             };
 
-            string dllName = libraryName switch
-            {
-                "cimgui" => "cimgui",
-                "cimplot" => "cimplot",
-                "cimnodes" => "cimnodes",
-                "cimguizmo" => "cimguizmo",
-                _ => throw new NotImplementedException()
-            };
+            string dllName = "cimgui"; // libraryName switch
+            //{
+            //    "cimgui" => "cimgui",
+            //    "cimplot" => "cimplot",
+            //    "cimnodes" => "cimnodes",
+            //    "cimguizmo" => "cimguizmo",
+            //    _ => throw new NotImplementedException()
+            //};
             
             //string definitionsPath = Path.Combine(AppContext.BaseDirectory, "definitions", libraryName);
             var defs = new ImguiDefinitions();
