@@ -44852,12 +44852,12 @@ namespace ImPlotNET
         {
             ImPlotNative.ImPlot_SetupAxisScale_PlotScale(axis, scale);
         }
-        public static void SetupAxisScale(ImAxis axis, ImPlotTransform forward, ImPlotTransform inverse)
+        public static void SetupAxisScale(ImAxis axis, IntPtr forward, IntPtr inverse)
         {
             void* data = null;
             ImPlotNative.ImPlot_SetupAxisScale_PlotTransform(axis, forward, inverse, data);
         }
-        public static void SetupAxisScale(ImAxis axis, ImPlotTransform forward, ImPlotTransform inverse, IntPtr data)
+        public static void SetupAxisScale(ImAxis axis, IntPtr forward, IntPtr inverse, IntPtr data)
         {
             void* native_data = (void*)data.ToPointer();
             ImPlotNative.ImPlot_SetupAxisScale_PlotTransform(axis, forward, inverse, native_data);

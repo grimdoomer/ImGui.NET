@@ -28,8 +28,8 @@ namespace ImPlotNET
         public int PickerLevel;
         public ImPlotTime PickerTimeMin;
         public ImPlotTime PickerTimeMax;
-        public ImPlotTransform TransformForward;
-        public ImPlotTransform TransformInverse;
+        public IntPtr TransformForward;
+        public IntPtr TransformInverse;
         public void* TransformData;
         public float PixelMin;
         public float PixelMax;
@@ -85,8 +85,8 @@ namespace ImPlotNET
         public ref int PickerLevel => ref Unsafe.AsRef<int>(&NativePtr->PickerLevel);
         public ref ImPlotTime PickerTimeMin => ref Unsafe.AsRef<ImPlotTime>(&NativePtr->PickerTimeMin);
         public ref ImPlotTime PickerTimeMax => ref Unsafe.AsRef<ImPlotTime>(&NativePtr->PickerTimeMax);
-        public ref ImPlotTransform TransformForward => ref Unsafe.AsRef<ImPlotTransform>(&NativePtr->TransformForward);
-        public ref ImPlotTransform TransformInverse => ref Unsafe.AsRef<ImPlotTransform>(&NativePtr->TransformInverse);
+        public ref IntPtr TransformForward => ref Unsafe.AsRef<IntPtr>(&NativePtr->TransformForward);
+        public ref IntPtr TransformInverse => ref Unsafe.AsRef<IntPtr>(&NativePtr->TransformInverse);
         public IntPtr TransformData { get => (IntPtr)NativePtr->TransformData; set => NativePtr->TransformData = (void*)value; }
         public ref float PixelMin => ref Unsafe.AsRef<float>(&NativePtr->PixelMin);
         public ref float PixelMax => ref Unsafe.AsRef<float>(&NativePtr->PixelMax);

@@ -1090,7 +1090,7 @@ namespace ImPlotNET
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_SetupAxisScale_PlotScale(ImAxis axis, ImPlotScale scale);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_SetupAxisScale_PlotTransform(ImAxis axis, ImPlotTransform forward, ImPlotTransform inverse, void* data);
+        public static extern void ImPlot_SetupAxisScale_PlotTransform(ImAxis axis, IntPtr forward, IntPtr inverse, void* data);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_SetupAxisTicks_doublePtr(ImAxis axis, double* values, int n_ticks, byte** labels, byte keep_default);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]

@@ -404,7 +404,7 @@ namespace CodeGenerator
             }
             IsFunctionPointer = Type.IndexOf('(') != -1;
 
-            if (Type == "ImPlotFormatter" || Type == "ImPlotLocator")
+            if (Type == "ImPlotFormatter" || Type == "ImPlotLocator" || Type == "ImPlotTransform")
                 IsFunctionPointer = true;
 
 
