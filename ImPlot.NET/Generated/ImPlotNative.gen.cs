@@ -482,13 +482,13 @@ namespace ImPlotNET
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_LabelAxisValue(ImPlotAxis axis, double value, byte* buff, int size, byte round);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_Locator_Default(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, ImPlotFormatter formatter, void* formatter_data);
+        public static extern void ImPlot_Locator_Default(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, IntPtr formatter, void* formatter_data);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_Locator_Log10(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, ImPlotFormatter formatter, void* formatter_data);
+        public static extern void ImPlot_Locator_Log10(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, IntPtr formatter, void* formatter_data);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_Locator_SymLog(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, ImPlotFormatter formatter, void* formatter_data);
+        public static extern void ImPlot_Locator_SymLog(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, IntPtr formatter, void* formatter_data);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_Locator_Time(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, ImPlotFormatter formatter, void* formatter_data);
+        public static extern void ImPlot_Locator_Time(ImPlotTicker* ticker, ImPlotRange range, float pixels, byte vertical, IntPtr formatter, void* formatter_data);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_MakeTime(ImPlotTime* pOut, int year, int month, int day, int hour, int min, int sec, int us);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
@@ -768,25 +768,25 @@ namespace ImPlotNET
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_PlotLineG(byte* label_id, ImPlotGetter getter, void* data, int count, ImPlotLineFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_FloatPtrPlotFormatter(byte** label_ids, float* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_FloatPtrPlotFormatter(byte** label_ids, float* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_doublePtrPlotFormatter(byte** label_ids, double* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_doublePtrPlotFormatter(byte** label_ids, double* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_S8PtrPlotFormatter(byte** label_ids, sbyte* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_S8PtrPlotFormatter(byte** label_ids, sbyte* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_U8PtrPlotFormatter(byte** label_ids, byte* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_U8PtrPlotFormatter(byte** label_ids, byte* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_S16PtrPlotFormatter(byte** label_ids, short* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_S16PtrPlotFormatter(byte** label_ids, short* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_U16PtrPlotFormatter(byte** label_ids, ushort* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_U16PtrPlotFormatter(byte** label_ids, ushort* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_S32PtrPlotFormatter(byte** label_ids, int* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_S32PtrPlotFormatter(byte** label_ids, int* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_U32PtrPlotFormatter(byte** label_ids, uint* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_U32PtrPlotFormatter(byte** label_ids, uint* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_S64PtrPlotFormatter(byte** label_ids, long* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_S64PtrPlotFormatter(byte** label_ids, long* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_PlotPieChart_U64PtrPlotFormatter(byte** label_ids, ulong* values, int count, double x, double y, double radius, ImPlotFormatter fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
+        public static extern void ImPlot_PlotPieChart_U64PtrPlotFormatter(byte** label_ids, ulong* values, int count, double x, double y, double radius, IntPtr fmt, void* fmt_data, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_PlotPieChart_FloatPtrStr(byte** label_ids, float* values, int count, double x, double y, double radius, byte* label_fmt, double angle0, ImPlotPieChartFlags flags);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
@@ -1080,7 +1080,7 @@ namespace ImPlotNET
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_SetupAxisFormat_Str(ImAxis axis, byte* fmt);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ImPlot_SetupAxisFormat_PlotFormatter(ImAxis axis, ImPlotFormatter formatter, void* data);
+        public static extern void ImPlot_SetupAxisFormat_PlotFormatter(ImAxis axis, IntPtr formatter, void* data);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ImPlot_SetupAxisLimits(ImAxis axis, double v_min, double v_max, ImPlotCond cond);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
@@ -1458,7 +1458,7 @@ namespace ImPlotNET
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern ImPlotTick* ImPlotTicker_AddTick_doubleStr(ImPlotTicker* self, double value, byte major, int level, byte show_label, byte* label);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ImPlotTick* ImPlotTicker_AddTick_doublePlotFormatter(ImPlotTicker* self, double value, byte major, int level, byte show_label, ImPlotFormatter formatter, void* data);
+        public static extern ImPlotTick* ImPlotTicker_AddTick_doublePlotFormatter(ImPlotTicker* self, double value, byte major, int level, byte show_label, IntPtr formatter, void* data);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]
         public static extern ImPlotTick* ImPlotTicker_AddTick_PlotTick(ImPlotTicker* self, ImPlotTick tick);
         [DllImport("cimgui", CallingConvention = CallingConvention.Cdecl)]

@@ -56,7 +56,7 @@ namespace ImPlotNET
             }
             return new ImPlotTickPtr(ret);
         }
-        public ImPlotTickPtr AddTick(double value, bool major, int level, bool show_label, ImPlotFormatter formatter, IntPtr data)
+        public ImPlotTickPtr AddTick(double value, bool major, int level, bool show_label, IntPtr formatter, IntPtr data)
         {
             byte native_major = major ? (byte)1 : (byte)0;
             byte native_show_label = show_label ? (byte)1 : (byte)0;

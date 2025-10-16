@@ -19,10 +19,10 @@ namespace ImPlotNET
         public ImPlotRange ConstraintRange;
         public ImPlotRange ConstraintZoom;
         public ImPlotTicker Ticker;
-        public ImPlotFormatter Formatter;
+        public IntPtr Formatter;
         public void* FormatterData;
         public fixed byte FormatSpec[16];
-        public ImPlotLocator Locator;
+        public IntPtr Locator;
         public double* LinkedMin;
         public double* LinkedMax;
         public int PickerLevel;
@@ -76,10 +76,10 @@ namespace ImPlotNET
         public ref ImPlotRange ConstraintRange => ref Unsafe.AsRef<ImPlotRange>(&NativePtr->ConstraintRange);
         public ref ImPlotRange ConstraintZoom => ref Unsafe.AsRef<ImPlotRange>(&NativePtr->ConstraintZoom);
         public ref ImPlotTicker Ticker => ref Unsafe.AsRef<ImPlotTicker>(&NativePtr->Ticker);
-        public ref ImPlotFormatter Formatter => ref Unsafe.AsRef<ImPlotFormatter>(&NativePtr->Formatter);
+        public ref IntPtr Formatter => ref Unsafe.AsRef<IntPtr>(&NativePtr->Formatter);
         public IntPtr FormatterData { get => (IntPtr)NativePtr->FormatterData; set => NativePtr->FormatterData = (void*)value; }
         public RangeAccessor<byte> FormatSpec => new RangeAccessor<byte>(NativePtr->FormatSpec, 16);
-        public ref ImPlotLocator Locator => ref Unsafe.AsRef<ImPlotLocator>(&NativePtr->Locator);
+        public ref IntPtr Locator => ref Unsafe.AsRef<IntPtr>(&NativePtr->Locator);
         public IntPtr LinkedMin { get => (IntPtr)NativePtr->LinkedMin; set => NativePtr->LinkedMin = (double*)value; }
         public IntPtr LinkedMax { get => (IntPtr)NativePtr->LinkedMax; set => NativePtr->LinkedMax = (double*)value; }
         public ref int PickerLevel => ref Unsafe.AsRef<int>(&NativePtr->PickerLevel);

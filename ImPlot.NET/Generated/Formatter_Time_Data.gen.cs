@@ -10,7 +10,7 @@ namespace ImPlotNET
     {
         public ImPlotTime Time;
         public ImPlotDateTimeSpec Spec;
-        public ImPlotFormatter UserFormatter;
+        public IntPtr UserFormatter;
         public void* UserFormatterData;
     }
     public unsafe partial struct Formatter_Time_DataPtr
@@ -23,7 +23,7 @@ namespace ImPlotNET
         public static implicit operator Formatter_Time_DataPtr(IntPtr nativePtr) => new Formatter_Time_DataPtr(nativePtr);
         public ref ImPlotTime Time => ref Unsafe.AsRef<ImPlotTime>(&NativePtr->Time);
         public ref ImPlotDateTimeSpec Spec => ref Unsafe.AsRef<ImPlotDateTimeSpec>(&NativePtr->Spec);
-        public ref ImPlotFormatter UserFormatter => ref Unsafe.AsRef<ImPlotFormatter>(&NativePtr->UserFormatter);
+        public ref IntPtr UserFormatter => ref Unsafe.AsRef<IntPtr>(&NativePtr->UserFormatter);
         public IntPtr UserFormatterData { get => (IntPtr)NativePtr->UserFormatterData; set => NativePtr->UserFormatterData = (void*)value; }
     }
 }

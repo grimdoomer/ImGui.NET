@@ -3400,28 +3400,28 @@ namespace ImPlotNET
                 NativeUtilities.FreeNativeBuffer(native_buff);
             }
         }
-        public static void Locator_Default(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, ImPlotFormatter formatter, IntPtr formatter_data)
+        public static void Locator_Default(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, IntPtr formatter, IntPtr formatter_data)
         {
             ImPlotTicker* native_ticker = ticker.NativePtr;
             byte native_vertical = vertical ? (byte)1 : (byte)0;
             void* native_formatter_data = (void*)formatter_data.ToPointer();
             ImPlotNative.ImPlot_Locator_Default(native_ticker, range, pixels, native_vertical, formatter, native_formatter_data);
         }
-        public static void Locator_Log10(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, ImPlotFormatter formatter, IntPtr formatter_data)
+        public static void Locator_Log10(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, IntPtr formatter, IntPtr formatter_data)
         {
             ImPlotTicker* native_ticker = ticker.NativePtr;
             byte native_vertical = vertical ? (byte)1 : (byte)0;
             void* native_formatter_data = (void*)formatter_data.ToPointer();
             ImPlotNative.ImPlot_Locator_Log10(native_ticker, range, pixels, native_vertical, formatter, native_formatter_data);
         }
-        public static void Locator_SymLog(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, ImPlotFormatter formatter, IntPtr formatter_data)
+        public static void Locator_SymLog(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, IntPtr formatter, IntPtr formatter_data)
         {
             ImPlotTicker* native_ticker = ticker.NativePtr;
             byte native_vertical = vertical ? (byte)1 : (byte)0;
             void* native_formatter_data = (void*)formatter_data.ToPointer();
             ImPlotNative.ImPlot_Locator_SymLog(native_ticker, range, pixels, native_vertical, formatter, native_formatter_data);
         }
-        public static void Locator_Time(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, ImPlotFormatter formatter, IntPtr formatter_data)
+        public static void Locator_Time(ImPlotTickerPtr ticker, ImPlotRange range, float pixels, bool vertical, IntPtr formatter, IntPtr formatter_data)
         {
             ImPlotTicker* native_ticker = ticker.NativePtr;
             byte native_vertical = vertical ? (byte)1 : (byte)0;
@@ -24431,7 +24431,7 @@ namespace ImPlotNET
                 NativeUtilities.FreeNativeBuffer(native_label_id);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24468,7 +24468,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_FloatPtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24505,7 +24505,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_FloatPtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24541,7 +24541,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_FloatPtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref float values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24576,7 +24576,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_FloatPtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24613,7 +24613,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_doublePtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24650,7 +24650,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_doublePtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24686,7 +24686,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_doublePtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref double values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24721,7 +24721,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_doublePtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24758,7 +24758,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24795,7 +24795,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24831,7 +24831,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref sbyte values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24866,7 +24866,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24903,7 +24903,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24940,7 +24940,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -24976,7 +24976,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref byte[] values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25011,7 +25011,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U8PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25048,7 +25048,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25085,7 +25085,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25121,7 +25121,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref short values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25156,7 +25156,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25193,7 +25193,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25230,7 +25230,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25266,7 +25266,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref ushort values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25301,7 +25301,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U16PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25338,7 +25338,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25375,7 +25375,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25411,7 +25411,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref int values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25446,7 +25446,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25483,7 +25483,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25520,7 +25520,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25556,7 +25556,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref uint values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25591,7 +25591,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U32PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25628,7 +25628,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S64PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25665,7 +25665,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S64PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25701,7 +25701,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S64PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref long values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25736,7 +25736,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_S64PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, ImPlotFormatter fmt)
+        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, IntPtr fmt)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25773,7 +25773,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U64PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data)
+        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25810,7 +25810,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U64PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0)
+        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -25846,7 +25846,7 @@ namespace ImPlotNET
                 ImPlotNative.ImPlot_PlotPieChart_U64PtrPlotFormatter(native_label_ids, native_values, count, x, y, radius, fmt, native_fmt_data, angle0, flags);
             }
         }
-        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, ImPlotFormatter fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
+        public static void PlotPieChart(string[] label_ids, ref ulong values, int count, double x, double y, double radius, IntPtr fmt, IntPtr fmt_data, double angle0, ImPlotPieChartFlags flags)
         {
             int* label_ids_byteCounts = stackalloc int[label_ids.Length];
             int label_ids_byteCount = 0;
@@ -44815,12 +44815,12 @@ namespace ImPlotNET
                 NativeUtilities.FreeNativeBuffer(native_fmt);
             }
         }
-        public static void SetupAxisFormat(ImAxis axis, ImPlotFormatter formatter)
+        public static void SetupAxisFormat(ImAxis axis, IntPtr formatter)
         {
             void* data = null;
             ImPlotNative.ImPlot_SetupAxisFormat_PlotFormatter(axis, formatter, data);
         }
-        public static void SetupAxisFormat(ImAxis axis, ImPlotFormatter formatter, IntPtr data)
+        public static void SetupAxisFormat(ImAxis axis, IntPtr formatter, IntPtr data)
         {
             void* native_data = (void*)data.ToPointer();
             ImPlotNative.ImPlot_SetupAxisFormat_PlotFormatter(axis, formatter, native_data);

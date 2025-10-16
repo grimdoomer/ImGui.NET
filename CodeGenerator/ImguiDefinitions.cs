@@ -403,7 +403,11 @@ namespace CodeGenerator
                 Name = Name.Substring(0, startBracket);
             }
             IsFunctionPointer = Type.IndexOf('(') != -1;
-            
+
+            if (Type == "ImPlotFormatter" || Type == "ImPlotLocator")
+                IsFunctionPointer = true;
+
+
             TypeVariants = typeVariants;
 
             string typeNameNoIndirection = type.Replace("*", "");
